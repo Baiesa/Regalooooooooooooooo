@@ -1,15 +1,15 @@
-import React, { useCallback, useContext } from "react";
+import { useCallback} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart, clearCart } from "../features/shoppingCartSlice";
+import { removeFromCart, clearCart, addToCart } from "../features/shoppingCartSlice";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../store";
 import { Item } from "../interface/types";
 
 const ShoppingCart = () => {
-  
   // Get the User from the store
-  const { user } = useSelector((state: RootState) => state.auth); // Access auth state from Redux
+  
+  const { user } = useSelector((state: RootState) => state.auth);
 
   // Get the shopping cart from the store
   const { shoppingCart, totalPrice } = useSelector(
@@ -31,6 +31,11 @@ const ShoppingCart = () => {
     },
     [dispatch]
   );
+
+  // Increase quantity function
+  const handleIncreaseQuantity = (item: Item) => {
+    dispatch(addToCart(item)); // Since addToCart will handle quantity, we can reuse this action
+  };
 
   // Get the current date and format it to make the API happy
   const currentDate = new Date();
@@ -63,52 +68,74 @@ const ShoppingCart = () => {
 
   return (
     <div>
-      <Container className="shopping-cart-container shadow-lg rounded-5 p-4 mt-5 col-6">
-        <h3 className="text-center mb-4">Shopping Cart</h3>
-        <Table responsive className="mb-0">
+      <div className="shopping-cart-container shadow-lg rounded-lg p-6 mt-10 max-w-3xl mx-auto">
+        <h3 className="text-center mb-6 text-xl font-semibold">Shopping Cart</h3>
+        <table className="min-w-full table-auto">
           <thead>
             <tr>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Action</th>
+              <th className="px-4 py-2 text-left">Product</th>
+              <th className="px-4 py-2 text-left">Price</th>
+              <th className="px-4 py-2 text-left">Quantity</th>
+              <th className="px-4 py-2 text-left">Action</th>
             </tr>
           </thead>
           <tbody>
             {Array.isArray(shoppingCart) && shoppingCart.length > 0 ? (
               shoppingCart.map((item: Item) => (
-                <tr key={item.id}>
-                  <td>{item.name}</td>
-                  <td>${item.price.toFixed(2)}</td>
-                  <td>
-                    <Button
-                      variant="danger"
+                <tr key={item.id} className="border-t">
+                  <td className="px-4 py-2">{item.name}</td>
+                  <td className="px-4 py-2">${item.price.toFixed(2)}</td>
+                  <td className="px-4 py-2">
+                    <div className="flex items-center space-x-2">
+                      <button
+                        className="bg-gray-300 px-2 py-1 rounded hover:bg-gray-400"
+                        onClick={() => handleRemoveFromCart(item)}
+                      >
+                        -
+                      </button>
+                      <span>{item.quantity}</span>
+                      <button
+                        className="bg-gray-300 px-2 py-1 rounded hover:bg-gray-400"
+                        onClick={() => handleIncreaseQuantity(item)}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </td>
+                  <td className="px-4 py-2">
+                    <button
+                      className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
                       onClick={() => handleRemoveFromCart(item)}
                     >
-                      Remove
-                    </Button>
+                      Remove All
+                    </button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={3} className="text-center">
+                <td colSpan={4} className="text-center py-4">
                   Your cart is empty.
                 </td>
               </tr>
             )}
           </tbody>
-        </Table>
+        </table>
 
         {/* Total Price Section */}
-        <div className="d-flex justify-content-end mt-4">
-          <h4>Total: ${totalPrice.toFixed(2)}</h4>
-          <Button variant="primary" className="ms-4" onClick={makeOrder}>
+        <div className="flex justify-end items-center mt-6">
+          <h4 className="text-lg font-medium">Total: ${totalPrice.toFixed(2)}</h4>
+          <button
+            className="bg-blue-500 text-white px-6 py-2 ml-4 rounded hover:bg-blue-600"
+            onClick={makeOrder}
+          >
             Checkout
-          </Button>
+          </button>
         </div>
-      </Container>
+      </div>
     </div>
   );
 };
 
 export default ShoppingCart;
+

@@ -7,6 +7,7 @@ import SignUpModal from './components/SignUpModal';
 import LoginModal from './components/LoginModal';
 import { Provider } from 'react-redux';
 import store from './store';
+import ProductList from './components/ProductList';
 
 const App: React.FC = () => {
   // State management for modals
@@ -29,6 +30,7 @@ const App: React.FC = () => {
       {/* Render different pages with React Router */}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/products" element={<ProductList />} />
       </Routes>
 
       {/* Conditionally render modals */}

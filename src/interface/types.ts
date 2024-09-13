@@ -21,7 +21,7 @@ export interface Order {
 
 export interface Item {
   id: string;
-  product_id: string;
   name: string;
   price: number;
+  quantity: number; // Add quantity field
 }

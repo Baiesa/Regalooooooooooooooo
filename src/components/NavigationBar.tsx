@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Button } from "@/components/ui/button";
 import { RootState, AppDispatch } from '../store'; // Import Redux types
 import { logout } from '../features/authSlice'; // Import the logout action
+import { useNavigate } from 'react-router-dom';
 
 interface NavigationBarProps {
   openSignUpModal: () => void;
@@ -11,6 +12,7 @@ interface NavigationBarProps {
 
 const NavigationBar: React.FC<NavigationBarProps> = ({ openSignUpModal, openLoginModal }) => {
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
   const { isAuthenticated, user } = useSelector((state: RootState) => state.auth); // Access auth state from Redux
 
   const handleLogout = () => {
@@ -21,6 +23,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ openSignUpModal, openLogi
     <nav className="bg-green-600 p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-white text-xl">regaloooooooooooooooooooooooo</div>
+        <Button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={() => navigate("/products")}> Products</Button>
 
         <div className="space-x-4">
           {isAuthenticated ? (
@@ -47,7 +50,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ openSignUpModal, openLogi
               >
                 Login
               </Button>
-              <button>New button</button>
+          
             </>
           )}
         </div>

@@ -1,67 +1,90 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Item } from "../interface/types";
 
+
+
 interface ShoppingCartState {
-    shoppingCart: Item[];
-    totalItems: number;
-    totalPrice: number;
+  shoppingCart: Item[];
+  totalItems: number;
+  totalPrice: number;
 }
 
-// Set the initial state of the cart
+// Initial state
 const initialState: ShoppingCartState = {
-    shoppingCart: [],
-    totalItems: 0,
-    totalPrice: 0,
+  shoppingCart: [],
+  totalItems: 0,
+  totalPrice: 0,
 };
 
-// check to see if there is a shopping cart state in local storage 
-// if there is return it if not return the initial state
+// Load shopping cart state from localStorage
 export const loadShoppingCartState = (): ShoppingCartState => {
-    const shoppingCartState = localStorage.getItem("shoppingCartState");
-    if (shoppingCartState) {
-        return JSON.parse(shoppingCartState);
-    } else {
-        return initialState;
-    }
+  const shoppingCartState = localStorage.getItem("shoppingCartState");
+  if (shoppingCartState) {
+    return JSON.parse(shoppingCartState);
+  } else {
+    return initialState;
+  }
 };
 
-// Create a slice to handle what to do to the shopping cart
+// Utility function to save the state to localStorage
+const saveShoppingCartState = (state: ShoppingCartState) => {
+  localStorage.setItem("shoppingCartState", JSON.stringify(state));
+};
+
+// Shopping cart slice
 export const shoppingCartSlice = createSlice({
-    name: "shopping cart",
-    initialState,
-    reducers: {
-        // Add to cart function, takes the current state and adds the payload.
-        // add 1 to total items
-        // add the price of the item to the total price
-        addToCart: (state, action: PayloadAction<Item>) => {
-            state.shoppingCart = [...state.shoppingCart, action.payload];
-            state.totalItems += 1;
-            state.totalPrice += action.payload.price;
-            console.log("added to cart");
-        },
-        removeFromCart: (state, action: PayloadAction<Item>) => {
-            // filter out the item that matches the id of the payload
-            // subtract 1 from total items
-            // subtract the price of the item from the total
-            state.shoppingCart = state.shoppingCart.filter(
-                (item) => item.id !== action.payload.id
-            );
-            state.totalItems -= 1;
-            state.totalPrice -= action.payload.price;
-            console.log("Item Deleted");
-            console.log(action.payload);
-        },
-        clearCart: (state) => {
-            // set the cart to empty
-            // remove the local storage
-            state.shoppingCart = [];
-            state.totalItems = 0;
-            state.totalPrice = 0;
-            localStorage.removeItem("shoppingCartState");
-        },
+  name: "shopping cart",
+  initialState: loadShoppingCartState(),
+  reducers: {
+    // Add an item to the cart
+    addToCart: (state, action: PayloadAction<Item>) => {
+      const { id, price } = action.payload;
+      const existingItem = state.shoppingCart.find((item) => item.id === id);
+
+      if (existingItem) {
+        // Increase the quantity if item already exists
+        existingItem.quantity += 1;
+      } else {
+        // Add new item to cart with quantity 1
+        state.shoppingCart.push({ ...action.payload, quantity: 1 });
+      }
+
+      state.totalItems += 1;
+      state.totalPrice += price;
+      saveShoppingCartState(state); // Persist state to localStorage
     },
+    // Remove an item from the cart
+    removeFromCart: (state, action: PayloadAction<Item>) => {
+      const { id, price } = action.payload;
+      const existingItem = state.shoppingCart.find((item) => item.id === id);
+
+      if (existingItem) {
+        if (existingItem.quantity > 1) {
+          // Decrease the quantity if more than 1
+          existingItem.quantity -= 1;
+        } else {
+          // Remove item from cart if quantity is 1
+          state.shoppingCart = state.shoppingCart.filter((item) => item.id !== id);
+        }
+
+        state.totalItems = Math.max(0, state.totalItems - 1);
+        state.totalPrice = Math.max(0, state.totalPrice - price);
+        saveShoppingCartState(state); // Persist state to localStorage
+      }
+    },
+    // Clear the entire cart
+    clearCart: (state) => {
+      state.shoppingCart = [];
+      state.totalItems = 0;
+      state.totalPrice = 0;
+      localStorage.removeItem("shoppingCartState"); // Remove from localStorage
+    },
+  },
 });
 
+// Export actions
 export const { addToCart, removeFromCart, clearCart } = shoppingCartSlice.actions;
 
+// Export reducer
 export default shoppingCartSlice.reducer;
+
