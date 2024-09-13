@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { RootState} from '../store'; 
-import { useDispatch, useSelector } from "react-redux";
+// import { useNavigate } from "react-router-dom";
+// import { RootState} from '../store'; 
+import { useDispatch} from "react-redux";
 import { addToCart } from "../features/shoppingCartSlice"; // Assuming you're using Redux to manage the cart
 
 interface Product {
@@ -13,7 +13,7 @@ interface Product {
 
 const ProductList = () => {
   // Database User from context
-  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+  // const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
   // State for list of products
   const [productList, setProductList] = useState<Product[]>([]);
@@ -21,7 +21,7 @@ const ProductList = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Hooks
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // Fetch products from the backend
