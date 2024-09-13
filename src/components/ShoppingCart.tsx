@@ -111,7 +111,7 @@ const ShoppingCart = () => {
                       className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
                       onClick={() => handleRemoveFromCart(item)}
                     >
-                      Remove All
+                      Remove
                     </button>
                   </td>
                 </tr>

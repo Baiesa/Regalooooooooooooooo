@@ -8,6 +8,8 @@ import LoginModal from './components/LoginModal';
 import { Provider } from 'react-redux';
 import store from './store';
 import ProductList from './components/ProductList';
+import Orders from './components/Orders';
+import ShoppingCart from './components/ShoppingCart';
 
 const App: React.FC = () => {
   // State management for modals
@@ -31,6 +33,8 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<ProductList />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path='cart' element={<ShoppingCart />}/>
       </Routes>
 
       {/* Conditionally render modals */}

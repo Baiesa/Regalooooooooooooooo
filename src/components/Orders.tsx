@@ -29,7 +29,7 @@ const Orders = () => {
   // Fetch all orders from the API
   const fetchOrders = async () => {
     try {
-      const response = await axios.get<Order[]>("API");
+      const response = await axios.get<Order[]>("https://regaloowebsite-1.onrender.com/orders");
       setOrders(response.data);
       console.log("Orders fetched:", response.data);
     } catch (error) {
@@ -41,7 +41,7 @@ const Orders = () => {
   // Fetch all products from the API
   const fetchProducts = async () => {
     try {
-      const response = await axios.get<Product[]>("API");
+      const response = await axios.get<Product[]>("https://regaloowebsite-1.onrender.com/products/");
       setProductList(response.data);
       console.log("Products fetched:", response.data);
     } catch (error) {

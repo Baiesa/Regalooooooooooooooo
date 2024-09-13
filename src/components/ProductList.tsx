@@ -27,7 +27,7 @@ const ProductList = () => {
   // Fetch products from the backend
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("https://regaloowebsite-1.onrender.com/products"); 
+      const response = await axios.get("https://regaloowebsite-1.onrender.com/products/"); 
       setProductList(response.data); 
       setLoading(false);
     } catch (err: any) {
@@ -43,16 +43,16 @@ const ProductList = () => {
 
   // Handle adding a product to the shopping cart
   const handleAddShoppingCart = (product: Product) => {
-    if (isAuthenticated) {
+    // if () {
       dispatch(addToCart({ ...product, id: Date.now().toString(), quantity: 1 })); // Add product to the cart with a unique ID and quantity of 1
-    } else {
-      alert("Please login to add items to your cart");
-      navigate("/login");
-    }
+    // } else {
+    //   alert("Please login to add items to your cart");
+    //   navigate("/");
+    // }
   };
 
   return (
-    <div className="container mx-auto pt-5">
+    <div className="shadow-lg container mx-auto pt-5">
       <h3 className="text-2xl font-semibold mb-6">Products</h3>
       <div className="flex flex-wrap -mx-4">
         {loading && <p>Loading...</p>}
