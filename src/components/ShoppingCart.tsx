@@ -60,11 +60,15 @@ const ShoppingCart = () => {
         dispatch(clearCart());
         // Navigate to the orders page
         navigate("/orders", { replace: true });
+        console.log(response.data)
       } catch (error) {
         console.error("Error making order:", error);
       }
     }
   };
+
+
+  
 
   return (
     <div>
