@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { RootState} from '../store'; 
 import { useSelector } from "react-redux";
@@ -17,7 +17,7 @@ interface Product {
 
 const Orders = () => {
   // Database User from context
-  const { isAuthenticated, user } = useSelector((state: RootState) => state.auth);
+  const { user } = useSelector((state: RootState) => state.auth);
 
   // State for orders, filtered orders, and products
   const [orders, setOrders] = useState<Order[]>([]);

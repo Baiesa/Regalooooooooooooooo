@@ -48,7 +48,7 @@ const ShoppingCart = () => {
       navigate("/products", { replace: true });
     } else {
       try {
-        const productIds = shoppingCart.map((item: Item) => item.product_id);
+        const productIds = shoppingCart.map((item: Item) => item.id);
         const response = await axios.post("https://backendcore-advanced-flask-api-pilm.onrender.com/orders", {
           customer_id: user?.id,
           date: formattedDate,

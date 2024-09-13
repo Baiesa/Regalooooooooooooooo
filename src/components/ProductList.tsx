@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { RootState} from '../store'; 
@@ -13,7 +13,7 @@ interface Product {
 
 const ProductList = () => {
   // Database User from context
-  const { isAuthenticated, user } = useSelector((state: RootState) => state.auth);
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
   // State for list of products
   const [productList, setProductList] = useState<Product[]>([]);
@@ -44,7 +44,7 @@ const ProductList = () => {
   // Handle adding a product to the shopping cart
   const handleAddShoppingCart = (product: Product) => {
     if (isAuthenticated) {
-      dispatch(addToCart({ ...product, id: Date.now().toString() })); // Add product to the cart with a unique ID
+      dispatch(addToCart({ ...product, id: Date.now().toString(), quantity: 1 })); // Add product to the cart with a unique ID and quantity of 1
     } else {
       alert("Please login to add items to your cart");
       navigate("/login");
