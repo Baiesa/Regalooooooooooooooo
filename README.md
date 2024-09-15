@@ -1,50 +1,35 @@
-# React + TypeScript + Vite
+# Regaloo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## API Overview
 
-Currently, two official plugins are available:
+Regaloo offers an API that empowers developers to integrate our innovative gifting solution into their applications. With the Regaloo API, users can send e-commerce products from various retailers without needing the recipient's physical shipping address, ensuring privacy and convenience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Regaloo API GitHub Repository:** [Regaloo API on GitHub](https://github.com/SwathyJagannatha/RegalooWebsite.git)
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Problem Statement
 
-- Configure the top-level `parserOptions` property like this:
+**How might we enable users to send e-commerce products from various retailers without needing the recipient's shipping address so that users can effortlessly and spontaneously send gifts to one another while respecting privacy and not needing to inquire about this vital piece of information?**
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Table of Contents
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- [Regaloo](#regaloo)
+  - [API Overview](#api-overview)
+  - [Problem Statement](#problem-statement)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Features](#features)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Introduction
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Regaloo is an innovative platform that transforms the traditional gifting experience. By eliminating the need for recipients' shipping addresses, Regaloo allows users to send gifts spontaneously while ensuring the privacy of both parties. Our solution bridges the gap between convenience and privacy in the world of online gifting.
+
+## Features
+
+- **Privacy-Focused Gifting:** Send gifts without requesting the recipient's shipping address.
+- **Seamless Integration:** Easy-to-use API for integrating gifting functionality into websites and applications.
+- **Diverse Retailer Network:** Access a wide range of products from various retailers.
+- **User-Friendly Interface:** Intuitive design for both senders and recipients to enhance the gifting experience.
+
+
+

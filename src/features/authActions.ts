@@ -9,14 +9,17 @@ export const login = (username: string, password: string) => async (dispatch: Ap
       password,
     });
 
-    const { token, user } = response.data; // Destructure token and user from the response
-
+    const { auth_token, message, status } = response.data; // Destructure token and user from the response
+    console.log(response.data);
+    console.log(auth_token);
+    console.log(message);
+    console.log(status);
     // Assuming the response is successful and contains the token and user data
-    dispatch(loginSuccess({ token, user }));
+    dispatch(loginSuccess({ token: auth_token, user: { id: '1', name: 'John Doe' } }));
 
     // Save the token and user data in localStorage for persistence
-    localStorage.setItem('authToken', token);
-    localStorage.setItem('authUser', JSON.stringify(user));
+    localStorage.setItem('authToken', auth_token);
+    // localStorage.setItem('authUser', JSON.stringify(user));
 
   } catch (error: any) {
     console.error('An error occurred during login:', error);

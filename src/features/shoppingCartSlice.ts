@@ -1,7 +1,6 @@
+// shoppingCartSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Item } from "../interface/types";
-
-
 
 interface ShoppingCartState {
   shoppingCart: Item[];
@@ -42,11 +41,9 @@ export const shoppingCartSlice = createSlice({
       const existingItem = state.shoppingCart.find((item) => item.id === id);
 
       if (existingItem) {
-        // Increase the quantity if item already exists
         existingItem.quantity += 1;
       } else {
-        // Add new item to cart with quantity 1
-        state.shoppingCart.push({ ...action.payload, quantity: 1 });
+        state.shoppingCart.push({ ...action.payload });
       }
 
       state.totalItems += 1;
@@ -60,10 +57,8 @@ export const shoppingCartSlice = createSlice({
 
       if (existingItem) {
         if (existingItem.quantity > 1) {
-          // Decrease the quantity if more than 1
           existingItem.quantity -= 1;
         } else {
-          // Remove item from cart if quantity is 1
           state.shoppingCart = state.shoppingCart.filter((item) => item.id !== id);
         }
 

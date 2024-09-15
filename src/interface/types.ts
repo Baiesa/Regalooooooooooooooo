@@ -6,10 +6,13 @@ export interface Customer {
 }
 
 export interface Product {
-  product_id: string;
+  id: number; // Ensure this matches the type in your data
   name: string;
+  description: string;
   price: number;
-  id?: string;
+  image?: string;
+  rating?: number; // Optional
+  stock_qty?: number;
 }
 
 export interface Order {
@@ -20,8 +23,12 @@ export interface Order {
 }
 
 export interface Item {
-  id: string;
+  id: number; // or string, depending on your data type
   name: string;
+  description: string;
   price: number;
-  quantity: number; // Add quantity field
+  image?: string;
+  rating?: number;
+  stock_qty?: number;
+  quantity: number;
 }

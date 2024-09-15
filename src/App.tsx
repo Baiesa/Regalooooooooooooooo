@@ -10,6 +10,9 @@ import store from './store';
 import ProductList from './components/ProductList';
 import Orders from './components/Orders';
 import ShoppingCart from './components/ShoppingCart';
+import ProductDetail from './components/ProductDetail';
+import BillingComponent from './components/BillingComponent';
+import ShippingInformationPage from './components/ShippingInformationPage';
 
 const App: React.FC = () => {
   // State management for modals
@@ -33,8 +36,11 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<ProductList />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/orders" element={<Orders />} />
         <Route path='cart' element={<ShoppingCart />}/>
+        <Route path="/billing" element={<BillingComponent />} />
+        <Route path="/shipping" element={<ShippingInformationPage />} />
       </Routes>
 
       {/* Conditionally render modals */}

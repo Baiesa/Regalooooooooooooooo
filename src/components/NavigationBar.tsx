@@ -22,7 +22,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ openSignUpModal, openLogi
   return (
     <nav className="bg-green-600 p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <div className="text-white text-xl">regaloooooooooooooooooooooooo</div>
+        <div className="text-white text-xl">regalooo</div>
         <Button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={() => navigate("/products")}> Products</Button>
         <Button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={() => navigate("/orders")}> Orders</Button>
         <Button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={() => navigate("/cart")}> Cart</Button>
