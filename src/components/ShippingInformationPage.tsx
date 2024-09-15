@@ -2,18 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface ShippingInfo {
-  fullName: string;
-  email: string;
-  address: string;
-  city: string;
-  state: string;
-  zipCode: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
 }
 
 const ShippingInformationPage: React.FC = () => {
   const [shippingInfo, setShippingInfo] = useState<ShippingInfo>({
-    fullName: '',
-    email: '',
     address: '',
     city: '',
     state: '',
@@ -29,25 +25,38 @@ const ShippingInformationPage: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setShippingInfo({
-      ...shippingInfo,
-      [e.target.name]: e.target.value,
-    });
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setShippingInfo((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const validate = (): boolean => {
     let isValid = true;
     const newErrors: Partial<ShippingInfo> = {};
-    if (!shippingInfo.fullName) {
-      newErrors.fullName = 'Full Name is required';
-      isValid = false;
-    }
-    if (!shippingInfo.email) {
-      newErrors.email = 'Email is required';
-      isValid = false;
-    }
-    if (!isReglooOption) {
+
+    if (isReglooOption) {
+      if (!recipientEmail) {
+        setRecipientEmailError('Recipient Email is required');
+        isValid = false;
+      } else {
+        setRecipientEmailError('');
+      }
+
+      if (!recipientMessage) {
+        setRecipientMessageError('Message is required');
+        isValid = false;
+      } else if (recipientMessage.length > 500) {
+        setRecipientMessageError('Message cannot exceed 500 characters');
+        isValid = false;
+      } else {
+        setRecipientMessageError('');
+      }
+    } else {
       if (!shippingInfo.address) {
         newErrors.address = 'Address is required';
         isValid = false;
@@ -63,24 +72,6 @@ const ShippingInformationPage: React.FC = () => {
       if (!shippingInfo.zipCode) {
         newErrors.zipCode = 'Zip Code is required';
         isValid = false;
-      }
-    } else {
-      if (!recipientEmail) {
-        setRecipientEmailError('Recipient Email is required');
-        isValid = false;
-      } else {
-        setRecipientEmailError('');
-      }
-
-      // Optional message validation
-      if (!recipientMessage) {
-        setRecipientMessageError('Message is required');
-        isValid = false;
-      } else if (recipientMessage.length > 500) {
-        setRecipientMessageError('Message cannot exceed 500 characters');
-        isValid = false;
-      } else {
-        setRecipientMessageError('');
       }
     }
 
@@ -171,50 +162,9 @@ const ShippingInformationPage: React.FC = () => {
               <p className="text-red-500 text-sm">{recipientMessageError}</p>
             )}
           </div>
-
-          {/* Proceed Button */}
-          <button
-            onClick={handleProceed}
-            className="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
-          >
-            Proceed to Confirmation
-          </button>
         </div>
       ) : (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleProceed();
-          }}
-        >
-          {/* Personal Information */}
-          <div className="mb-4">
-            <label className="block mb-1 font-medium">Full Name</label>
-            <input
-              type="text"
-              name="fullName"
-              value={shippingInfo.fullName}
-              onChange={handleChange}
-              className="w-full border border-gray-300 p-2 rounded"
-            />
-            {errors.fullName && (
-              <p className="text-red-500 text-sm">{errors.fullName}</p>
-            )}
-          </div>
-          <div className="mb-4">
-            <label className="block mb-1 font-medium">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={shippingInfo.email}
-              onChange={handleChange}
-              className="w-full border border-gray-300 p-2 rounded"
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email}</p>
-            )}
-          </div>
-
+        <div>
           {/* Address Information */}
           <div className="mb-4">
             <label className="block mb-1 font-medium">Address</label>
@@ -270,18 +220,19 @@ const ShippingInformationPage: React.FC = () => {
               <p className="text-red-500 text-sm">{errors.zipCode}</p>
             )}
           </div>
-
-          {/* Proceed Button */}
-          <button
-            type="submit"
-            className="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
-          >
-            Proceed to Confirmation
-          </button>
-        </form>
+        </div>
       )}
+
+      {/* Proceed Button */}
+      <button
+        onClick={handleProceed}
+        className="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+      >
+        Proceed to Confirmation
+      </button>
     </div>
   );
 };
 
 export default ShippingInformationPage;
+
