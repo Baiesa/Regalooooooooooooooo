@@ -9,7 +9,8 @@ export const login = (username: string, password: string) => async (dispatch: Ap
       password,
     });
 
-    const { auth_token, message, status, customer_id, name } = response.data; // Destructure token and user from the response
+    const { auth_token: { auth_token, customer_id, message, name }, status } = response.data;
+ // Destructure token and user from the response
     console.log(response.data);
     console.log(auth_token);
     console.log(message);

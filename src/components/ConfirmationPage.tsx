@@ -4,7 +4,11 @@ import { RootState } from '../store';
 import { Item } from '../interface/types';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+
 const ConfirmationPage: React.FC = () => {
+  
+  
+  
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -21,6 +25,24 @@ const ConfirmationPage: React.FC = () => {
     navigate('/shipping');
     return null;
   }
+
+  // const handleConfirmOrder = async () => {
+  // try {
+  //   const response = await axios.post('https://regaloowebsite-1.onrender.com/orders', {
+  //     "customeraccnt_id": 1
+  // });} catch (error) {
+  //   console.error('An error occurred during order confirmation:', error);
+  //   // Check if the error contains a response from the server
+  //   if ((error as any).response && (error as any).response.data) {
+  //     throw new Error((error as any).response.data.message || 'Order failed');
+  //   } else {
+  //     throw new Error('An error occurred during order confirmation.');
+  //   }
+  // }
+  // }
+
+
+
 
 
 
@@ -86,6 +108,7 @@ const ConfirmationPage: React.FC = () => {
       <div className="flex justify-end">
         <button
           className="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600"
+          
         >
           Confirm Order
         </button>
