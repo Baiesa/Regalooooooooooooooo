@@ -43,7 +43,7 @@ const ConfirmationPage: React.FC = () => {
             {recipientMessage && (
               <div className="mt-2">
                 <p><strong>Message to Recipient:</strong></p>
-                <p className="border border-gray-300 p-2 rounded">{recipientMessage}</p>
+                <p className="p-2">{recipientMessage}</p>
               </div>
             )}
           </div>

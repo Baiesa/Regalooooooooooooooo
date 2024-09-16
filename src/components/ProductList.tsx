@@ -12,7 +12,7 @@ import { Product } from "../interface/types";
 
 const ProductList = () => {
 
-  const rating = 4; // Hardcoded rating for now
+  const rating = 3; // Hardcoded rating for now
   
   // State for list of products
   const [productList, setProductList] = useState<Product[]>([]);
@@ -117,6 +117,8 @@ const ProductList = () => {
               </button>
             </div>
           </div>
+
+          
         </div>
       ))}
   </div>
