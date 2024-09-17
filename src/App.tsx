@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import Home from './components/Home';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import SignUpModal from './components/SignUpModal';
 import LoginModal from './components/LoginModal';
@@ -11,9 +12,9 @@ import ProductList from './components/ProductList';
 import Orders from './components/Orders';
 import ShoppingCart from './components/ShoppingCart';
 import ProductDetail from './components/ProductDetail';
-import BillingComponent from './components/BillingComponent';
-import ShippingInformationPage from './components/ShippingInformationPage';
 import ConfirmationPage from './components/ConfirmationPage';
+import Footer from './components/Footer';
+import Checkout from './components/Checkout';
 
 const App: React.FC = () => {
   // State management for modals
@@ -40,14 +41,14 @@ const App: React.FC = () => {
         <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/orders" element={<Orders />} />
         <Route path='cart' element={<ShoppingCart />}/>
-        <Route path="/billing" element={<BillingComponent />} />
-        <Route path="/shipping" element={<ShippingInformationPage />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/confirmation" element={<ConfirmationPage />} />
       </Routes>
 
       {/* Conditionally render modals */}
       {showSignUpModal && <SignUpModal closeModal={closeSignUpModal} />}
       {showLoginModal && <LoginModal closeModal={closeLoginModal} />}
+      <Footer />
     </Router>
     </Provider>
   );

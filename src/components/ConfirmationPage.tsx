@@ -2,14 +2,14 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { Item } from '../interface/types';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 const ConfirmationPage: React.FC = () => {
   
   
   
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const location = useLocation();
 
   // Retrieve state passed from ShippingInformationPage
@@ -20,16 +20,26 @@ const ConfirmationPage: React.FC = () => {
     (state: RootState) => state.shoppingCart
   );
 
-  // If no shippingInfo or recipientEmail is available, redirect back to shipping page
-  if (!shippingInfo && !recipientEmail) {
-    navigate('/shipping');
-    return null;
-  }
+  // // If no shippingInfo or recipientEmail is available, redirect back to shipping page
+  // if (!shippingInfo && !recipientEmail) {
+  //   navigate('/shipping');
+  //   return null;
+  // }
 
   // const handleConfirmOrder = async () => {
   // try {
   //   const response = await axios.post('https://regaloowebsite-1.onrender.com/orders', {
-  //     "customeraccnt_id": 1
+  //     {
+  //       "customeraccnt_id": 1,
+  //     "products":[
+  //           {
+  //               "id": 2,
+  //               "name": "shoes",
+  //               "price": 23.34,
+  //               "stock_qty":4
+  //           }
+
+
   // });} catch (error) {
   //   console.error('An error occurred during order confirmation:', error);
   //   // Check if the error contains a response from the server

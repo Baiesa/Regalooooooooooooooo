@@ -84,7 +84,7 @@ const ProductList = () => {
                   <svg
                     key={index}
                     className={`w-4 h-4 fill-current ${
-                      index < rating                            // product.rating || 1
+                      index < rating    //product.rating || 1
                         ? 'text-yellow-500'
                         : 'text-gray-300'
                     }`}

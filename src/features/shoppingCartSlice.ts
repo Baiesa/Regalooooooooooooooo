@@ -42,6 +42,7 @@ export const shoppingCartSlice = createSlice({
 
       if (existingItem) {
         existingItem.quantity += 1;
+        state.totalItems += 1;
       } else {
         state.shoppingCart.push({ ...action.payload });
       }
@@ -58,6 +59,7 @@ export const shoppingCartSlice = createSlice({
       if (existingItem) {
         if (existingItem.quantity > 1) {
           existingItem.quantity -= 1;
+          state.totalItems -= 1;
         } else {
           state.shoppingCart = state.shoppingCart.filter((item) => item.id !== id);
         }
