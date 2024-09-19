@@ -8,15 +8,13 @@ export const login = (username: string, password: string) => async (dispatch: Ap
       username,
       password,
     });
-
-    const { auth_token: { auth_token, customer_id, message, name }, status } = response.data;
+    // Destructure token and user from the response
+    const { auth_token: { auth_token, customer_id, name, custaccount_id
+    }} = response.data;
  // Destructure token and user from the response
-    console.log(response.data);
-    console.log(auth_token);
-    console.log(message);
-    console.log(status);
+
     // Assuming the response is successful and contains the token and user data
-    dispatch(loginSuccess({ token: auth_token, user: { id: customer_id, name: name,  acct_id: message } }));
+    dispatch(loginSuccess({ token: auth_token, user: { id: customer_id, name: name,  acct_id: custaccount_id } }));
 
     // Save the token and user data in localStorage for persistence
     localStorage.setItem('authToken', auth_token);

@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import NavigationBar from './components/NavigationBar';
-import Home from './components/Home';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import NavigationBar from "./components/NavigationBar";
+import Home from "./components/Home";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
-import SignUpModal from './components/SignUpModal';
-import LoginModal from './components/LoginModal';
-import { Provider } from 'react-redux';
-import store from './store';
-import ProductList from './components/ProductList';
-import Orders from './components/Orders';
-import ShoppingCart from './components/ShoppingCart';
-import ProductDetail from './components/ProductDetail';
-import ConfirmationPage from './components/ConfirmationPage';
-import Footer from './components/Footer';
-import Checkout from './components/Checkout';
+import SignUpModal from "./components/SignUpModal";
+import LoginModal from "./components/LoginModal";
+import { Provider } from "react-redux";
+import store from "./store";
+import ProductList from "./components/ProductList";
+import Orders from "./components/Orders";
+import ShoppingCart from "./components/ShoppingCart";
+import ProductDetail from "./components/ProductDetail";
+import ConfirmationPage from "./components/checkout/ConfirmationPage";
+import Footer from "./components/Footer";
+import Checkout from "./components/checkout/Checkout";
 
 const App: React.FC = () => {
   // State management for modals
@@ -30,26 +30,29 @@ const App: React.FC = () => {
 
   return (
     <Provider store={store}>
-    <Router>
-      {/* Pass modal handlers to NavigationBar */}
-      <NavigationBar openSignUpModal={openSignUpModal} openLoginModal={openLoginModal} />
+      <Router>
+        {/* Pass modal handlers to NavigationBar */}
+        <NavigationBar
+          openSignUpModal={openSignUpModal}
+          openLoginModal={openLoginModal}
+        />
 
-      {/* Render different pages with React Router */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/products" element={<ProductList />} />
-        <Route path="/products/:id" element={<ProductDetail />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path='cart' element={<ShoppingCart />}/>
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/confirmation" element={<ConfirmationPage />} />
-      </Routes>
+        {/* Render different pages with React Router */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<ProductList />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="cart" element={<ShoppingCart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/confirmation" element={<ConfirmationPage />} />
+        </Routes>
 
-      {/* Conditionally render modals */}
-      {showSignUpModal && <SignUpModal closeModal={closeSignUpModal} />}
-      {showLoginModal && <LoginModal closeModal={closeLoginModal} />}
-      <Footer />
-    </Router>
+        {/* Conditionally render modals */}
+        {showSignUpModal && <SignUpModal closeModal={closeSignUpModal} />}
+        {showLoginModal && <LoginModal closeModal={closeLoginModal} />}
+        <Footer />
+      </Router>
     </Provider>
   );
 };
