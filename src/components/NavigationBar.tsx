@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from "@/components/ui/button";
 import { RootState, AppDispatch } from '../store'; // Import Redux types
@@ -11,6 +11,7 @@ interface NavigationBarProps {
 }
 
 const NavigationBar: React.FC<NavigationBarProps> = ({ openSignUpModal, openLoginModal }) => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const { isAuthenticated, user } = useSelector((state: RootState) => state.auth); // Access auth state from Redux
@@ -26,18 +27,50 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ openSignUpModal, openLogi
   return (
 <nav className="bg-green-600 p-4">
   <div className="container mx-auto flex justify-between items-center">
-    
-<div className="text-white text-xl" onClick={() => navigate("/")}>LOGO</div>
-<div className="text-white text-xl" onClick={() => navigate("/")}>Categories</div>
-<div className="text-white text-xl" onClick={() => navigate("/")}>What is Regalooo</div>
-<div className="text-white text-xl" onClick={() => navigate("/")}>Help</div>
-<input type="text" className="giftsearch" />
-<Button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={() => navigate("/cart")}>Search</Button>
+    {/* Logo */}
+    <div className="text-white text-xl" onClick={() => navigate("/")}>
+      LOGO
+    </div>
 
+    {/* Hamburger menu for mobile */}
+    <div className="block lg:hidden">
+      <button
+        className="text-white focus:outline-none"
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+      >
+        <i className="fas fa-bars text-2xl"></i>
+      </button>
+    </div>
 
+    {/* Main Navigation (visible only on larger screens) */}
+    <div className="hidden lg:flex lg:space-x-4 items-center">
+      <div className="text-white text-xl" onClick={() => navigate("/")}>
+        Categories
+      </div>
+      <div className="text-white text-xl" onClick={() => navigate("/")}>
+        What is Regalooo
+      </div>
+      <div className="text-white text-xl" onClick={() => navigate("/")}>
+        Help
+      </div>
 
-    <Button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={() => navigate("/orders")}>Orders</Button>
+      {/* Search Bar */}
+      <div className="flex space-x-4">
+        <input
+          type="text"
+          placeholder="Search..."
+          className="giftsearch px-4 py-2 rounded"
+        />
+        <Button
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          onClick={() => navigate("/cart")}
+        >
+          Search
+        </Button>
+      </div>
+    </div>
 
+    {/* User Authentication Section */}
     <div className="space-x-4 flex items-center">
       {isAuthenticated ? (
         <>
@@ -67,13 +100,10 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ openSignUpModal, openLogi
       )}
     </div>
 
-    {/* Cart icon with badge */}
+    {/* Cart Icon with Dropdown */}
     <div className="relative group">
       <button className="relative" onClick={() => navigate("/cart")}>
-        {/* Font Awesome Cart Icon */}
         <i className="fas fa-shopping-cart text-white text-2xl"></i>
-
-        {/* Badge for number of items in the cart */}
         {shoppingCart.length > 0 && (
           <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
             {shoppingCart.length}
@@ -81,11 +111,11 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ openSignUpModal, openLogi
         )}
       </button>
 
-      {/* Cart dropdown */}
+      {/* Cart Dropdown */}
       <div className="absolute right-0 mt-2 w-[350px] bg-white shadow-lg rounded-lg p-4 hidden group-hover:block z-10">
         <h4 className="font-bold text-lg mb-4">Your Cart</h4>
         {shoppingCart.length > 0 ? (
-          <div className="w-full h-auto relative bg-[#f0f0f0] shadow-lg rounded-lg p-4">
+          <div className="w-full h-auto bg-[#f0f0f0] shadow-lg rounded-lg p-4">
             {shoppingCart.slice(0, 2).map((item) => (
               <div key={item.id} className="flex items-center justify-between mb-4">
                 <div className="flex items-center">
@@ -104,17 +134,19 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ openSignUpModal, openLogi
                 </div>
               </div>
             ))}
-
-            <div className="text-right text-black text-sm font-semibold mb-2">
-              {shoppingCart.length > 2 ? `+ ${shoppingCart.length - 2} more items` : ""}
-            </div>
-
+            {shoppingCart.length > 2 && (
+              <div className="text-right text-black text-sm font-semibold mb-2">
+                + {shoppingCart.length - 2} more items
+              </div>
+            )}
             <div className="flex justify-between w-full mt-2">
               <span className="font-medium">Subtotal:</span>
               <span>${totalPrice.toFixed(2)}</span>
             </div>
-
-            <div className="w-full h-12 bg-white rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-300 mt-4" onClick={() => navigate("/cart")}>
+            <div
+              className="w-full h-12 bg-white rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-300 mt-4"
+              onClick={() => navigate("/cart")}
+            >
               <div className="text-black text-xl font-bold">View Cart</div>
             </div>
           </div>
@@ -122,6 +154,38 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ openSignUpModal, openLogi
           <p>Your cart is empty.</p>
         )}
       </div>
+    </div>
+  </div>
+
+  {/* Mobile Dropdown Menu (only visible when open) */}
+  <div
+    className={`lg:hidden flex flex-col space-y-2 mt-4 ${
+      mobileMenuOpen ? "block" : "hidden"
+    }`}
+  >
+    <div className="text-white text-xl" onClick={() => navigate("/")}>
+      Categories
+    </div>
+    <div className="text-white text-xl" onClick={() => navigate("/")}>
+      What is Regalooo
+    </div>
+    <div className="text-white text-xl" onClick={() => navigate("/")}>
+      Help
+    </div>
+
+    {/* Search Bar for Mobile */}
+    <div className="flex flex-col space-y-2 mt-4">
+      <input
+        type="text"
+        placeholder="Search..."
+        className="giftsearch px-4 py-2 rounded"
+      />
+      <Button
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        onClick={() => navigate("/cart")}
+      >
+        Search
+      </Button>
     </div>
   </div>
 </nav>

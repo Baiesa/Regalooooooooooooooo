@@ -147,7 +147,7 @@ const Home: React.FC = () => {
       
       {/* Left Large Promotional Area */}
       <div
-        className="w-[570px] h-[570px] px-[39px] col-span-6 bg-cover bg-center p-4 flex flex-col items-center justify-center shadow-lg"
+        className="col-span-12 lg:col-span-6 bg-cover bg-center p-4 flex flex-col items-center justify-center shadow-lg"
         style={{ backgroundImage: 'url(https://via.placeholder.com/600x300)' }}
       >
         <p className="font-bold text-white text-2xl">Promotional Area</p>
@@ -155,14 +155,14 @@ const Home: React.FC = () => {
 
       {/* Right Top Two Smaller Promotional Areas */}
       <div
-        className="w-[218px] h-[276px] px-[39px] col-span-3 bg-cover bg-center p-4 flex flex-col items-center justify-center shadow-lg"
+        className="col-span-6 lg:col-span-3 bg-cover bg-center p-4 flex flex-col items-center justify-center shadow-lg"
         style={{ backgroundImage: 'url(https://via.placeholder.com/400x300)' }}
       >
         <p className="font-bold text-white text-xl">Promotional Area</p>
       </div>
 
       <div
-        className="w-[218px] h-[276px] px-[39px] col-span-3 bg-cover bg-center p-4 flex flex-col items-center justify-center shadow-lg"
+        className="col-span-6 lg:col-span-3 bg-cover bg-center p-4 flex flex-col items-center justify-center shadow-lg"
         style={{ backgroundImage: 'url(https://via.placeholder.com/400x300)' }}
       >
         <p className="font-bold text-black text-xl">Promotional Area</p>
@@ -170,14 +170,14 @@ const Home: React.FC = () => {
 
       {/* Bottom Two Small Promotional Areas */}
       <div
-        className="col-span-2 bg-cover bg-center p-4 flex flex-col items-center justify-center shadow-lg"
+        className="col-span-6 lg:col-span-2 bg-cover bg-center p-4 flex flex-col items-center justify-center shadow-lg"
         style={{ backgroundImage: 'url(https://via.placeholder.com/300x200)' }}
       >
         <p className="font-bold text-white text-lg">Promotional Area</p>
       </div>
 
       <div
-        className="col-span-2 bg-cover bg-center p-4 flex flex-col items-center justify-center shadow-lg"
+        className="col-span-6 lg:col-span-2 bg-cover bg-center p-4 flex flex-col items-center justify-center shadow-lg"
         style={{ backgroundImage: 'url(https://via.placeholder.com/300x200)' }}
       >
         <p className="font-bold text-white text-lg">Promotional Area</p>
@@ -185,7 +185,7 @@ const Home: React.FC = () => {
 
       {/* Right Large Promotional Area */}
       <div
-        className="col-span-4 bg-cover bg-center p-4 flex flex-col items-center justify-center shadow-lg "
+        className="col-span-12 lg:col-span-4 bg-cover bg-center p-4 flex flex-col items-center justify-center shadow-lg "
         style={{ backgroundImage: 'url(https://via.placeholder.com/600x300)' }}
       >
         <p className="font-bold text-white text-2xl">Promotional Area</p>
@@ -194,6 +194,7 @@ const Home: React.FC = () => {
     </div>
   </div>
 </div>
+
 
 
 
