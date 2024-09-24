@@ -4,7 +4,7 @@ import { loginSuccess } from './authSlice';
 
 export const login = (username: string, password: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.post('https://regaloowebsite-1.onrender.com/customeraccnt/login', {
+    const response = await axios.post('https://regaloo-updated-code.onrender.com/customeraccnt/login', {
       username,
       password,
     });

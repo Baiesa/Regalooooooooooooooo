@@ -27,7 +27,7 @@ const ProductList = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "https://regaloowebsite-1.onrender.com/products/"
+        "https://regaloo-updated-code.onrender.com/products/"
       );
       setProductList(response.data);
       setLoading(false);

@@ -44,7 +44,7 @@ const ShoppingCart = () => {
     0
   );
 
-  // Assume tax rate is 8%
+  
   const taxRate = 0.08;
   const tax = subtotal * taxRate;
   const grandTotal = subtotal + tax;

@@ -28,7 +28,7 @@ const Orders = () => {
   const fetchOrders = async () => {
     try {
       const response = await axios.get<Order[]>(
-        "https://regaloowebsite-1.onrender.com/orders"
+        "https://regaloo-updated-code.onrender.com/orders"
       );
       setOrders(response.data);
       console.log("Orders fetched:", response.data);

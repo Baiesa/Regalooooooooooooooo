@@ -22,7 +22,7 @@ const ProductDetail: React.FC = () => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get<Product>(
-          `https://regaloowebsite-1.onrender.com/products/${id}`
+          `https://regaloo-updated-code.onrender.com/products/${id}`
         );
         setProduct(response.data);
         setLoading(false);

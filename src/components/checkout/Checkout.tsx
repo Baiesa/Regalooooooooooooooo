@@ -24,7 +24,7 @@ interface RecipientInfo {
 const sendOrder = async (orderData: any) => {
   try {
     const response = await axios.post(
-      "https://regaloowebsite-1.onrender.com/orders",
+      "https://regaloo-updated-code.onrender.com/orders",
       orderData,
     );
     return response.data;
