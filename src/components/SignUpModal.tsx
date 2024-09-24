@@ -40,7 +40,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
       );
       console.log("Customer created:", customerResponse.data);
 
-      const customerId = customerResponse.data.customer_id; // The API returns customer_id
+      const customerId = customerResponse.data.id; // The API returns customer_id
 
       if (customerId) {
         // Step 2: Create the account using the stored customer ID
@@ -50,11 +50,12 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
             username: inputUsername,
             password: inputPassword,
             customer_id: customerId,
+            role_id: 1, // Default role_id for customers
           }
         );
         console.log("Account created:", accountResponse.data);
 
-        const accountId = accountResponse.data.account_id; // The API returns account_id
+        const accountId = accountResponse.data.customer_id; // The API returns account_id
 
         if (accountId) {
           // Step 3: Dispatch the login action to auto-login the user

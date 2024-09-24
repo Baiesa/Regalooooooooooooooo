@@ -25,7 +25,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ openSignUpModal, openLogi
   };
 
   return (
-<nav className="bg-green-600 p-4">
+<nav className="bg-gray-600  p-4">
   <div className="container mx-auto flex justify-between items-center">
     {/* Logo */}
     <div className="text-white text-xl" onClick={() => navigate("/")}>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Button } from '../ui/button';
 
 interface RecipientInfo {
   recipientName: string;
@@ -32,6 +33,13 @@ const RecipientInformation: React.FC<RecipientProps> = ({ setRecipientInfo }) =>
       ...prevInfo,
       [name]: value,
     }));
+  };
+
+  // Handle save button click
+  const handleSave = () => {
+    // You can add any additional logic here (e.g., calling an API to save the data)
+    console.log('Saving recipient info:', recipientInfo);
+    // Optionally, notify the parent component that the form is submitted
   };
 
   return (
@@ -89,6 +97,11 @@ const RecipientInformation: React.FC<RecipientProps> = ({ setRecipientInfo }) =>
           required
         />
       </div>
+
+      {/* Save Button */}
+      <Button onClick={handleSave} className="bg-green-500 text-white p-2 rounded-md">
+        Save Information
+      </Button>
     </div>
   );
 };

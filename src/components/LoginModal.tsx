@@ -58,7 +58,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ closeModal }) => {
           />
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600"
+            className="w-full bg-green-500 text-white p-2 rounded-lg hover:bg-blue-600"
           >
             Login
           </button>

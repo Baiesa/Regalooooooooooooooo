@@ -21,23 +21,11 @@ interface RecipientInfo {
   giftMessage: string;
 }
 
-const sendOrder = async (orderData: any) => {
-  try {
-    const response = await axios.post(
-      "https://regaloo-updated-code.onrender.com/orders",
-      orderData,
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error submitting order:", error);
-    throw error;
-  }
-};
+
 
 const CheckoutPage: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.auth); // Access auth state from Redux
 
-  
   const [recipientInfo, setRecipientInfo] =
     React.useState<RecipientInfo | null>(null);
 
@@ -49,29 +37,43 @@ const CheckoutPage: React.FC = () => {
   // Navigation hook
   const navigate = useNavigate();
 
+  const sendOrder = async (orderData: any) => {
+    try {
+      const response = await axios.post(
+        "https://regaloo-updated-code.onrender.com/orders",
+        orderData
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error submitting order:", error);
+      throw error;
+    }
+  };
   // Function to handle sending the order
   const handleSendGiftApproval = async () => {
+    console.log(recipientInfo)
     if (!recipientInfo) {
       alert("Please fill out the recipient information.");
       return;
     }
 
     try {
-      // Package the data for the API call
-      const orderData = {
-        customeraccnt_id: user?.acct_id,
-        recipient_email: recipientInfo.recipientEmail,
-        recipient_name: recipientInfo.recipientName,
-        sender_name: recipientInfo.senderName,
-        gift_message: recipientInfo.giftMessage,
-        products: shoppingCart.map((item) => ({
-          id: item.id,
-          name: item.name,
-          price: item.price,
-          stock_qty: item.quantity,
-        })),
-      };
+// Package the data for the API call
+const orderData = {
+  customeraccnt_id: Number(user?.acct_id), 
+  recipient_email: recipientInfo.recipientEmail,
+  recipient_name: recipientInfo.recipientName,
+  sender_name: recipientInfo.senderName,
+  gift_message: recipientInfo.giftMessage,
+  // products: shoppingCart.map((item) => ({
+  //   id: item.id,
+  //   name: item.name,
+  //   price: item.price,
+  //   stock_qty: 23,
+  // })),
+};
 
+      console.log("Order data:", orderData);
       // Send the API call via Axios
       const result = await sendOrder(orderData);
       console.log("Order submitted successfully:", result);
@@ -131,7 +133,7 @@ const CheckoutPage: React.FC = () => {
 
         <button
           onClick={handleSendGiftApproval}
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-blue-600"
         >
           Send Gift Approval
         </button>

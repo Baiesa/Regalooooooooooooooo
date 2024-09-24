@@ -125,7 +125,7 @@ const ShoppingCart = () => {
                 <span>${grandTotal.toFixed(2)}</span>
               </div>
               <button
-                className="bg-blue-500 text-white px-6 py-2 mt-4 rounded hover:bg-blue-600"
+                className="bg-green-500 text-white px-6 py-2 mt-4 rounded hover:bg-green-600"
                 onClick={() => navigate("/checkout")}
               >
                 Checkout

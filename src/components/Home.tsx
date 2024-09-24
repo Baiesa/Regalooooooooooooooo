@@ -63,7 +63,7 @@ const Home: React.FC = () => {
   <div className="text-center text-black text-5xl font-bold font-['Inter'] mb-8">
     Unique Gifts for Every Occasion
   </div>
-  <div className="bg-black text-white rounded-lg px-12 py-4 cursor-pointer hover:bg-gray-800 transition duration-300 ease-in-out">
+  <div className="bg-green-500 text-white rounded-lg px-12 py-4 cursor-pointer hover:bg-green-800 transition duration-300 ease-in-out">
     <span onClick={() => navigate("/products")} className="text-3xl font-bold font-['Inter']">
       Shop Now
     </span>
