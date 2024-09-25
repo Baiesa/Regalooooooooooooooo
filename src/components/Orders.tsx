@@ -73,7 +73,7 @@ const Orders = () => {
                 </p>
                 <p className="text-gray-600 mb-4">
                   <span className="font-medium">Delivery Address:</span>{" "}
-                  {order.delivery_address || "N/A"}
+                  {order.delivery_address ? "******" : "N/A"}
                 </p>
 
                 <p className="font-semibold mb-2">Products:</p>

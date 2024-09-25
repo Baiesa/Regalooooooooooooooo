@@ -1,8 +1,13 @@
 import React from 'react';
 
 const BillingComponent: React.FC = () => {
+  
+  
+  
+  
+  
   return (
-    <div className="container mx-auto p-6 max-w-lg bg-gray-100 rounded-md shadow-md">
+    <div className="container p-6 max-w-lg bg-ggray-100 rounded-md shadow-md mx-auto">
       <h2 className="text-2xl font-semibold mb-6">Billing Address</h2>
       <form>
         {/* First and Last Name */}
@@ -99,9 +104,16 @@ const BillingComponent: React.FC = () => {
           </div>
         </div>
       </form>
+            {/* Continue Button */}
+            <button
+        className="mt-4 w-full py-2 px-4 rounded bg-blue-500 text-white hover:bg-blue-600"
+      >
+        Continue to Payment Details
+      </button>
     </div>
   );
 };
 
 export default BillingComponent;
+
 

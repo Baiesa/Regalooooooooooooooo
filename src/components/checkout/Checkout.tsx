@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios"; // Import axios
 import PaymentDetails from "./PaymentDetails";
 import BillingComponent from "./BillingComponent";
+import OrderSummary from "./OrderSummary";
 
 // Define RecipientInfo type
 interface RecipientInfo {
@@ -40,7 +41,7 @@ const CheckoutPage: React.FC = () => {
   const sendOrder = async (orderData: any) => {
     try {
       const response = await axios.post(
-        "https://regaloo-updated-code.onrender.com/orders",
+        "https://regaloo-updated-code.onrender.com/orders/",
         orderData
       );
       return response.data;
@@ -65,12 +66,12 @@ const orderData = {
   recipient_name: recipientInfo.recipientName,
   sender_name: recipientInfo.senderName,
   gift_message: recipientInfo.giftMessage,
-  // products: shoppingCart.map((item) => ({
-  //   id: item.id,
-  //   name: item.name,
-  //   price: item.price,
-  //   stock_qty: 23,
-  // })),
+  products: shoppingCart.map((item) => ({
+    id: item.id,
+    name: item.name,
+    price: item.price,
+    stock_qty: item.quantity,
+  })),
 };
 
       console.log("Order data:", orderData);
@@ -120,25 +121,21 @@ const orderData = {
       </div>
 
       {/* Right side order summary */}
-      <div className="order-summary flex-1 p-6 border border-gray-300 rounded-md">
-        <h5 className="text-lg font-bold mb-4">Order Summary</h5>
-        {/* Show shopping cart details */}
-        {shoppingCart.map((item) => (
-          <div key={item.id} className="mb-2">
-            <p>
-              {item.name} - ${item.price} x {item.quantity}
-            </p>
-          </div>
-        ))}
+      <div className="max-w-3xl mx-auto p-6 bg-gray-100 rounded-md shadow-md">
+      {/* Order Summary Section */}
+      <OrderSummary />
 
+      {/* Button placed below the Order Summary */}
+      <div className="mt-6 flex justify-center">
         <button
           onClick={handleSendGiftApproval}
-          className="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="bg-green-500 text-white py-2 px-4 rounded hover:bg-blue-600"
         >
           Send Gift Approval
         </button>
       </div>
     </div>
+  </div>
   );
 };
 

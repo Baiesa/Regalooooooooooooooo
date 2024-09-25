@@ -15,6 +15,7 @@ import ProductDetail from "./components/ProductDetail";
 import ConfirmationPage from "./components/checkout/ConfirmationPage";
 import Footer from "./components/Footer";
 import Checkout from "./components/checkout/Checkout";
+import ShippingInformationPage from "./components/checkout/ShippingInformationPage";
 
 const App: React.FC = () => {
   // State management for modals
@@ -46,6 +47,7 @@ const App: React.FC = () => {
           <Route path="cart" element={<ShoppingCart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/confirmation" element={<ConfirmationPage />} />
+          <Route path="/shipping" element={<ShippingInformationPage/>} />
         </Routes>
 
         {/* Conditionally render modals */}

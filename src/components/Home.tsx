@@ -6,8 +6,8 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   
   const featuredBrands = [
-    { name: "Sephora", image: "path_to_sephora_image", alt: "Sephora" },
-    { name: "Harry & David", image: "path_to_harry_and_david_image", alt: "Harry & David" },
+    { name: "Sephora", image: "", alt: "Sephora" },
+    { name: "Harry & David", image: "", alt: "Harry & David" },
     { name: "Tiffany & Co.", image: "path_to_tiffany_image", alt: "Tiffany & Co." },
     { name: "Neiman Marcus", image: "path_to_neiman_marcus_image", alt: "Neiman Marcus" },
     { name: "Moleskine", image: "path_to_moleskine_image", alt: "Moleskine" },
