@@ -47,12 +47,17 @@ const App: React.FC = () => {
           <Route path="cart" element={<ShoppingCart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/confirmation" element={<ConfirmationPage />} />
-          <Route path="/shipping" element={<ShippingInformationPage/>} />
+          <Route path="/shipping" element={<ShippingInformationPage />} />
         </Routes>
 
         {/* Conditionally render modals */}
-        {showSignUpModal && <SignUpModal closeModal={closeSignUpModal} />}
-        {showLoginModal && <LoginModal closeModal={closeLoginModal} />}
+        {showSignUpModal && <SignUpModal closeModal={closeSignUpModal} openLoginModal={openLoginModal} />}
+        {showLoginModal && (
+          <LoginModal
+            closeModal={closeLoginModal}
+            openSignUpModal={openSignUpModal} // Pass the openSignUpModal function here
+          />
+        )}
         <Footer />
       </Router>
     </Provider>
@@ -60,3 +65,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+

@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '../ui/button';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
 interface RecipientInfo {
   recipientName: string;
@@ -43,8 +51,33 @@ const RecipientInformation: React.FC<RecipientProps> = ({ setRecipientInfo }) =>
   };
 
   return (
-    <div className="recipient-info bg-gray-200 p-6 rounded-md w-full max-w-lg mx-auto">
-      <h5 className="text-lg font-bold mb-2">Recipient Information</h5>
+    <div className="recipient-info bg-gray-200 p-6 rounded-md w-full max-w-lg mx-auto relative">
+  <h5 className="text-lg font-bold mb-2">Recipient Information</h5>
+  
+  {/* Information Icon (Sheet Trigger) */}
+  <Sheet>
+    <SheetTrigger>
+      <i className="fas fa-info-circle text-gray-500 cursor-pointer absolute top-2 right-2 text-xl"></i>
+    </SheetTrigger>
+    <SheetContent>
+      <SheetHeader>
+        <SheetTitle>Gifting with Regaloo: </SheetTitle>
+        <SheetDescription className='text-lg'>
+        Simplified and Secure
+        </SheetDescription>
+      </SheetHeader>
+      <SheetTitle className='text-sm mt-10'>Private & Secure</SheetTitle>
+      <SheetDescription>
+      Your gift recipient will receive an email letting them know they have a surprise gift waiting, along with a request to approve and accept it by securely entering their delivery address – all without revealing it to you.
+        </SheetDescription>
+        <SheetTitle className='text-sm mt-4'>Easy Confirmation</SheetTitle>
+      <SheetDescription>
+      Once your gift recipient confirms the gift and enters their address, we’ll notify you when it’s ready to be shipped
+        </SheetDescription>
+    </SheetContent>
+  </Sheet>
+
+
 
       {/* Information Section */}
       <p className="text-sm mb-4">
@@ -107,5 +140,3 @@ const RecipientInformation: React.FC<RecipientProps> = ({ setRecipientInfo }) =>
 };
 
 export default RecipientInformation;
-
-

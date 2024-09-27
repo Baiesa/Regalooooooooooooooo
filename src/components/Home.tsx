@@ -1,17 +1,24 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import neiman from "../assets/images/image 13.png"
+import sephora from "../assets/images/image 8.png"
+import harry from "../assets/images/image 9.png"
+import tiffany from "../assets/images/image 10.png"
+import moleskine from "../assets/images/image 11.png"
+import apple from "../assets/images/image 12.png"
+import hero from "../assets/images/pexels-olly-3784379 1.png"
 
 const Home: React.FC = () => {
   
   const navigate = useNavigate();
   
   const featuredBrands = [
-    { name: "Sephora", image: "", alt: "Sephora" },
-    { name: "Harry & David", image: "", alt: "Harry & David" },
-    { name: "Tiffany & Co.", image: "path_to_tiffany_image", alt: "Tiffany & Co." },
-    { name: "Neiman Marcus", image: "path_to_neiman_marcus_image", alt: "Neiman Marcus" },
-    { name: "Moleskine", image: "path_to_moleskine_image", alt: "Moleskine" },
-    { name: "Apple", image: "path_to_apple_image", alt: "Apple" },
+    { name: "Sephora", image: sephora, alt: "Sephora" },
+    { name: "Harry & David", image: harry, alt: "Harry & David" },
+    { name: "Tiffany & Co.", image: tiffany, alt: "Tiffany & Co." },
+    { name: "Neiman Marcus", image: neiman, alt: "Neiman Marcus" },
+    { name: "Moleskine", image: moleskine, alt: "Moleskine" },
+    { name: "Apple", image: apple, alt: "Apple" },
   ];
 
   const productCategories = [
@@ -58,35 +65,43 @@ const Home: React.FC = () => {
   
   return (
   <>
-    {/* Hero Section */}
-<div className="w-full h-auto bg-white flex flex-col items-center justify-center my-16 py-16">
-  <div className="text-center text-black text-5xl font-bold font-['Inter'] mb-8">
-    Unique Gifts for Every Occasion
-  </div>
-  <div className="bg-green-500 text-white rounded-lg px-12 py-4 cursor-pointer hover:bg-green-800 transition duration-300 ease-in-out">
-    <span onClick={() => navigate("/products")} className="text-3xl font-bold font-['Inter']">
-      Shop Now
-    </span>
-  </div>
-</div>
+    <div
+      className="relative bg-cover bg-center h-[500px]"
+      style={{ backgroundImage: `url(${hero})` }}
+    >
+      {/* Overlay for Text */}
+      <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+      
+      {/* Content */}
+      <div className="relative z-10 flex flex-col justify-center items-end h-full px-6 lg:px-20">
+        <h1 className="text-white font-bold text-4xl lg:text-5xl max-w-md ">
+          Send the Perfect Gift,  Anonymously and Securely
+        </h1>
+        <button 
+        className="mt-6 bg-green-500 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-green-600 transition" 
+        onClick={() => navigate("/products")}>
+          Send Your Gift Today
+        </button>
+      </div>
+    </div>
 
 {/* Featured Brands */}
-<div className="bg-gray-300 py-10">
+<div className="bg-#d9d9d9 py-10">
   <div className="container mx-auto text-center">
-    <h2 className="text-3xl font-bold mb-2">Featured Brands</h2>
-    <a href="/products" className="text-sm underline text-gray-700">Shop All</a>
+    <h2 className="text-3xl font-bold mb-2 text-[#2e4823]">Featured Brands</h2>
+    <a href="/products" className="text-sm underline text-[#4ca330]">Shop All</a>
 
     <div className="mt-8 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center">
       {featuredBrands.map((brand, index) => (
         <div key={index} className="flex flex-col items-center">
-          <div className="w-32 h-32 rounded-full border-2 border-black flex items-center justify-center">
+          <div className="w-32 h-32 rounded-full border-2 flex items-center justify-center ">
             <img
               src={brand.image || "https://via.placeholder.com/50"}
               alt={brand.alt}
-              className="w-16 h-16 object-cover rounded"
+              className="w-36 h-36 object-contain rounded"
             />
           </div>
-          <span className="mt-4 bg-black text-white px-4 py-2 rounded-full">{brand.name}</span>
+      
         </div>
       ))}
     </div>
