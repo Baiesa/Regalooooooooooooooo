@@ -1,12 +1,11 @@
 // import { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, addToCart } from "../features/shoppingCartSlice";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../store";
 import { Item } from "../interface/types";
-import { useState } from "react";
+
 
 const ShoppingCart = () => {
   // Get the shopping cart from the store

@@ -11,10 +11,9 @@ interface NavigationBarProps {
 }
 
 const NavigationBar: React.FC<NavigationBarProps> = ({
-  openSignUpModal,
   openLoginModal,
 }) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const { isAuthenticated, user } = useSelector(
