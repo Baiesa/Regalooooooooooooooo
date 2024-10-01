@@ -9,7 +9,7 @@ import {
 import RecipientInformation from "./RecipientInformation";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import axios from "axios"; // Import axios
 import PaymentDetails from "./PaymentDetails";
 import BillingComponent from "./BillingComponent";
@@ -39,7 +39,7 @@ const CheckoutPage: React.FC = () => {
   );
 
   // Navigation hook
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const sendOrder = async (orderData: any) => {
     try {
