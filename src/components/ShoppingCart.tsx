@@ -18,18 +18,6 @@ const ShoppingCart = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Remove from cart function
-  // const handleRemoveFromCart = useCallback(
-  //   (item: Item) => {
-  //     try {
-  //       dispatch(removeFromCart(item));
-  //     } catch (error) {
-  //       console.error("Error removing product from cart:", error);
-  //     }
-  //   },
-  //   [dispatch]
-  // );
-
   // Increase quantity function
   const handleUpdateQuantity = (item: Item, quantity: number) => {
     dispatch(addToCart({ ...item, quantity })); // Update the item with the new quantity

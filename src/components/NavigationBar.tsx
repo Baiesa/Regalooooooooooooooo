@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { RootState, AppDispatch } from "../store"; // Import Redux types
 import { logout } from "../features/authSlice"; // Import the logout action
 import { useNavigate } from "react-router-dom";
+import regalooologo from "../assets/images/regalooo-logo.png";
 
 interface NavigationBarProps {
   openSignUpModal: () => void;
@@ -33,12 +34,14 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
   return (
     <nav className="w-full h-16 bg-[#4ca330] flex items-center justify-between px-8 relative">
       {/* Logo */}
-      <div
-        className=" text-white text-3xl font-bold tracking-[6px] font-['Comfortaa'] cursor-pointer"
+      <img
+      src={regalooologo}
+      alt="Regalooo Logo"
+        className="cursor-pointer h-16 w-auto "
         onClick={() => navigate("/")}
       >
-        REGALOOO
-      </div>
+      
+      </img>
 
       {/* Main Navigation Links */}
       <div className="hidden lg:flex space-x-10">

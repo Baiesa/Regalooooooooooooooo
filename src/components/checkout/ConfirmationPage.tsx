@@ -1,50 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Button } from "@/components/ui/button";
 
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  stock_qty: number;
-}
-
-interface Order {
-  customeraccnt_id: number;
-  date: string;
-  delivery_address?: string | null;
-  id: number;
-  products: Product[];
-  status: string;
-}
 
 const ConfirmationPage = () => {
-  const [orders, setOrders] = useState<Order[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  // Fetch all orders from the API
-  const fetchOrders = async () => {
-    try {
-      const response = await axios.get<Order[]>(
-        "https://regaloo-updated-code.onrender.com/orders"
-      );
-      setOrders(response.data);
-      console.log("Orders fetched:", response.data);
-    } catch (error) {
-      console.error("Error fetching orders:", error);
-      setError("Failed to fetch orders.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchOrders();
-  }, []);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
 
   return (
     <div className="confirmation-page text-center p-8">
@@ -62,27 +21,8 @@ const ConfirmationPage = () => {
         Keep an eye on your inbox for updates – we’ll let you know as soon as
         the recipient has approved and provided their address!
       </p>
-
-      {/* Display order information */}
-      <h2 className="text-2xl font-semibold mb-4">Order Information</h2>
-      {orders.map((order) => (
-        <div key={order.id} className="order-info p-4 mb-4 border rounded-lg">
-          <p className="font-bold">Order ID: {order.id}</p>
-          <p>Status: {order.status}</p>
-          <p>Delivery Address: {order.delivery_address || "Pending"}</p>
-          <p>Order Date: {new Date(order.date).toLocaleDateString()}</p>
-          <div className="products mt-4">
-            <h3 className="text-xl mb-2">Products:</h3>
-            <ul>
-              {order.products.map((product) => (
-                <li key={product.id} className="mb-2">
-                  {product.name} - ${product.price} (Qty: {product.stock_qty})
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ))}
+    <Button className="mr-5">Orders</Button>
+    <Button className="ml-5">Home</Button>
     </div>
   );
 };

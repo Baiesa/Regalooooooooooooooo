@@ -14,6 +14,7 @@ import axios from "axios"; // Import axios
 import PaymentDetails from "./PaymentDetails";
 import BillingComponent from "./BillingComponent";
 import OrderSummary from "./OrderSummary";
+import ConfirmationPage from "./ConfirmationPage";
 
 // Define RecipientInfo type
 interface RecipientInfo {
@@ -27,6 +28,7 @@ interface RecipientInfo {
 
 const CheckoutPage: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.auth); // Access auth state from Redux
+  const [isOpen, setIsOpen] = React.useState(false);
 
   const [recipientInfo, setRecipientInfo] =
     React.useState<RecipientInfo | null>(null);
@@ -81,7 +83,7 @@ const orderData = {
       console.log("Order submitted successfully:", result);
 
       // Navigate to a success page or show a confirmation message
-      navigate("/confirmation");
+      setIsOpen(true);
     } catch (error) {
       console.error("Error placing the order:", error);
     }
@@ -134,8 +136,23 @@ const orderData = {
         >
           Send Gift Approval
         </button>
+
       </div>
     </div>
+    {isOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          {/* Modal content */}
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <ConfirmationPage/>
+            <button 
+              className="bg-red-500 text-white px-4 py-2 rounded" 
+              onClick={() => setIsOpen(false)}
+            >
+              Close Modal
+            </button>
+          </div>
+        </div>
+      )}
   </div>
   );
 };

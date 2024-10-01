@@ -32,7 +32,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, openLoginModal })
     try {
       // Step 1: Create the customer
       const customerResponse = await axios.post(
-        "https://regaloo-updated-code.onrender.com/customers",
+        "https://regaloo-updated-code.onrender.com/customers/",
         {
           name: inputName,
           email: inputEmail,
@@ -46,7 +46,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, openLoginModal })
       if (customerId) {
         // Step 2: Create the account using the stored customer ID
         const accountResponse = await axios.post(
-          "https://regaloo-updated-code.onrender.com/customeraccnt",
+          "https://regaloo-updated-code.onrender.com/customeraccnt/",
           {
             username: inputUsername,
             password: inputPassword,

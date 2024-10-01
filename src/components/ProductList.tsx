@@ -89,7 +89,7 @@ const ProductList = () => {
       image: "",
     },
     {
-      id: 108,
+      id: 109,
       name: "Static Product 10",
       description: "This is yet another static product",
       price: 45.99,
