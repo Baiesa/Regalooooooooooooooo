@@ -47,19 +47,20 @@ const ShoppingCart = () => {
   const grandTotal = subtotal + tax;
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 bg-[#EBEEEA]">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column: Cart Items */}
-        <div className="lg:col-span-2 shadow-lg rounded-lg p-6 bg-gray-100">
-          <h3 className="text-2xl font-semibold mb-6">
-            Cart ({shoppingCart.length} item{shoppingCart.length > 1 && "s"})
+        <div className="lg:col-span-2  rounded-lg p-6 ">
+          <h3 className="text-4xl font-semibold mb-6 text-[#2E4823]">
+            Cart <span className="text-lg">({shoppingCart.length} item{shoppingCart.length > 1 && "s"})</span>
           </h3>
+          
           {shoppingCart.length > 0 ? (
             <>
               {shoppingCart.map((item: Item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between p-4 bg-white rounded-lg shadow-md mb-4"
+                  className="flex items-center justify-between p-4 bg-[#F1FAEB] rounded-lg shadow-md mb-4"
                 >
                   <div className="flex items-center space-x-4">
                     <img
@@ -101,10 +102,10 @@ const ShoppingCart = () => {
               ))}
             </>
           ) : (
-            <div className="text-center py-10">
+            <div className="text-center py-10 shadow-lg bg-[#F1FAEB] rounded-lg">
               <p className="text-lg">Your cart is empty.</p>
               <button
-                className="mt-6 bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600"
+                className="mt-4 py-2 px-4 rounded bg-[#4ca330] text-white hover:bg-green-900"
                 onClick={() => navigate("/products")}
               >
                 Continue Shopping
@@ -114,7 +115,7 @@ const ShoppingCart = () => {
         </div>
 
         {/* Right Column: Summary Section */}
-        <div className="shadow-lg rounded-lg p-6 bg-gray-50">
+        <div className="shadow-lg rounded-lg p-6 bg-[#F1FAEB]">
           <h4 className="text-xl font-semibold mb-6">Order Summary</h4>
           <div className="flex justify-between mb-2">
             <span className="text-gray-600">
@@ -132,14 +133,14 @@ const ShoppingCart = () => {
             <span>${grandTotal.toFixed(2)}</span>
           </div>
           <button
-            className="bg-green-500 text-white w-full py-3 mt-6 rounded hover:bg-green-600"
+            className="mt-4 w-full py-2 px-4 rounded bg-[#4ca330] text-white hover:bg-green-900"
             onClick={handleCheckout}
           >
             Checkout
           </button>
           
           <button
-            className="mt-4 w-full text-center text-gray-600 hover:underline"
+            className="mt-4 w-full text-center text-[#316a21] hover:underline underline"
             onClick={() => navigate("/products")}
           >
             Continue Shopping

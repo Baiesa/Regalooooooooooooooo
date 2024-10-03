@@ -6,13 +6,23 @@ export interface Customer {
 }
 
 export interface Product {
-  id: number; // Ensure this matches the type in your data
+  id: number;
   name: string;
-  description: string;
+  title: string;
   price: number;
-  image?: string;
-  rating?: number; // Optional
-  stock_qty?: number;
+  description: string;
+  category: string;
+  image: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
+}
+
+export interface Category {
+  title: string;
+  viewAllLink: string;
+  products: Product[];
 }
 
 export interface Order {
@@ -23,12 +33,16 @@ export interface Order {
 }
 
 export interface Item {
-  id: number; // or string, depending on your data type
+  id: number;
   name: string;
-  description: string;
+  title: string;
   price: number;
-  image?: string;
-  rating?: number;
-  stock_qty?: number;
+  description: string;
+  category: string;
+  image: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
   quantity: number;
 }

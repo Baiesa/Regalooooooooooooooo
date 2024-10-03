@@ -2,7 +2,7 @@ import React from 'react';
 
 const PaymentDetails: React.FC = () => {
   return (
-    <div className="payment-details bg-gray-200 p-6 rounded-md w-full max-w-md mx-auto">
+    <div className="payment-details p-6 rounded-md w-full max-w-md mx-auto">
       <h5 className="text-lg font-bold mb-4">Payment Details</h5>
 
       {/* Static Payment Method Options */}
@@ -75,7 +75,7 @@ const PaymentDetails: React.FC = () => {
 
       {/* Continue Button */}
       <button
-        className="mt-4 w-full py-2 px-4 rounded bg-blue-500 text-white hover:bg-blue-600"
+         className="mt-4 w-full py-2 px-4 rounded bg-[#4ca330] text-white hover:bg-green-900"
       >
         Continue to Recipient Information
       </button>

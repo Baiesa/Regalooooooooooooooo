@@ -1,16 +1,15 @@
-// ProductDetail.tsx
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 import { addToCart } from '@/features/shoppingCartSlice';
-import { Item } from '@/interface/types';
-import { Product } from '@/interface/types';
+import { Item, Product } from '@/interface/types';
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>(); // Get the product ID from URL parameters
   const [product, setProduct] = useState<Product | null>(null);
+  const [similarProducts, setSimilarProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -18,14 +17,20 @@ const ProductDetail: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Fetch product details
+    // Fetch product details and similar products
     const fetchProduct = async () => {
       try {
         const response = await axios.get<Product>(
-          `https://regaloo-updated-code.onrender.com/products/${id}/`
+          `https://fakestoreapi.com/products/${id}`
         );
         setProduct(response.data);
         setLoading(false);
+
+        // Fetch similar products based on category
+        const similarResponse = await axios.get<Product[]>(
+          `https://fakestoreapi.com/products/category/${response.data.category}`
+        );
+        setSimilarProducts(similarResponse.data.filter(item => item.id !== Number(id)));
       } catch (error) {
         console.error('Error fetching product:', error);
         setError('Failed to fetch product details.');
@@ -49,32 +54,30 @@ const ProductDetail: React.FC = () => {
   }
 
   const handleAddToCart = (product: Product) => {
-    console.log('Adding product to cart:', product);
     const item: Item = { ...product, quantity: 1 };
     dispatch(addToCart(item));
   };
 
   return (
     <div className="container mx-auto p-6">
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row">
+      {/* Main Product Section */}
+      <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row mb-10">
         <img
-          className="w-full md:w-1/2 h-64 md:h-auto object-cover"
+          className="w-full md:w-1/2 h-80 md:h-auto object-cover rounded-sm"
           src={product.image || 'https://via.placeholder.com/500'}
-          alt={product.name}
+          alt={product.title}
         />
         <div className="p-6 md:w-1/2">
-          <h2 className="text-2xl font-semibold mb-4">{product.name}</h2>
-          <p className="text-gray-700 mb-4">{product.description}</p>
-          <p className="text-xl font-bold text-green-600 mb-4">
-            ${product.price.toFixed(2)}
-          </p>
+          <h2 className="text-3xl font-semibold mb-4">{product.title}</h2>
+          <p className="text-gray-600 text-lg mb-4">{product.description}</p>
+          <p className="text-2xl font-bold text-green-600 mb-4">${product.price.toFixed(2)}</p>
           {/* Rating Stars */}
           <div className="flex items-center mb-4">
             {[...Array(5)].map((_, index) => (
               <svg
                 key={index}
                 className={`w-5 h-5 fill-current ${
-                  index < (product.rating || 0)
+                  index < Math.round(product.rating?.rate || 0)
                     ? 'text-yellow-500'
                     : 'text-gray-300'
                 }`}
@@ -85,7 +88,7 @@ const ProductDetail: React.FC = () => {
               </svg>
             ))}
             <span className="ml-2 text-sm text-gray-600">
-              {product.rating ? product.rating.toFixed(1) : 'No reviews'}
+              {product.rating ? product.rating.rate : 'No reviews'}
             </span>
           </div>
           {/* Add to Cart Button */}
@@ -104,8 +107,32 @@ const ProductDetail: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {/* Similar Items Section */}
+      <div>
+        <h3 className="text-2xl font-semibold mb-4">Similar Items</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {similarProducts.slice(0, 4).map((similarProduct) => (
+            <div key={similarProduct.id} className="bg-white shadow-lg p-4 rounded-lg">
+              <img
+                src={similarProduct.image || 'https://via.placeholder.com/150'}
+                alt={similarProduct.title}
+                className="w-full h-48 object-cover object-center rounded-t-md cursor-pointer"
+                onClick={() => navigate(`/products/${similarProduct.id}`)}
+              />
+              <div className="text-lg font-semibold mt-4">{similarProduct.title}</div>
+              <div className="text-gray-500 mt-2">${similarProduct.price.toFixed(2)}</div>
+              <div className="text-yellow-500 mt-2">
+                {"★".repeat(Math.round(similarProduct.rating?.rate || 0))}
+                {"☆".repeat(5 - Math.round(similarProduct.rating?.rate || 0))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
 export default ProductDetail;
+

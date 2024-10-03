@@ -10,7 +10,7 @@ const OrderSummary = () => {
   const navigate = useNavigate(); // Define navigate
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-gray-100 rounded-md shadow-md">
+    <div className="max-w-lg mx-auto p-6 bg-[#f1faeb] rounded-md ">
       {/* Order Summary Header */}
       <div className="border-b pb-4 mb-4">
         <h2 className="text-xl font-semibold">Order Summary</h2>
@@ -44,7 +44,7 @@ const OrderSummary = () => {
       </div>
 
       {/* Shopping Bag Header */}
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-4 bg-[#F1FAEB]">
         <h3 className="text-lg font-semibold">Shopping Bag</h3>
         <button className="text-sm text-blue-500"
         onClick={() => navigate("/cart")}>edit</button>
@@ -53,7 +53,7 @@ const OrderSummary = () => {
       {/* Shopping Bag Items */}
       <div className="border-t pt-4">
         {shoppingCart.length > 0 ? (
-          <div className="w-full h-auto bg-[#f0f0f0] shadow-lg rounded-lg p-4">
+          <div className="w-full h-auto bg-[#F1FAEB] rounded-lg p-4">
             {shoppingCart.slice(0, 2).map((item) => (
               <div key={item.id} className="flex items-center justify-between mb-4">
                 <div className="flex items-center">

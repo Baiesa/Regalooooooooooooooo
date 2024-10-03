@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { RootState, AppDispatch } from "../store"; // Import Redux types
 import { logout } from "../features/authSlice"; // Import the logout action
 import { useNavigate } from "react-router-dom";
-import regalooologo from "../assets/images/regalooo-logo.png";
+import regalooologo from "../assets/images/white-logo.webp";
+import { clearCart } from "@/features/shoppingCartSlice";
 
 interface NavigationBarProps {
   openSignUpModal: () => void;
@@ -27,12 +28,13 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
 
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(clearCart());
   };
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <nav className="w-full h-16 bg-[#4ca330] flex items-center justify-between px-8 relative">
+    <nav className="w-full h-16 bg-[#4CA330] flex items-center justify-between px-8 relative">
       {/* Logo */}
       <img
       src={regalooologo}

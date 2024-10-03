@@ -7,8 +7,7 @@ const BillingComponent: React.FC = () => {
   
   
   return (
-    <div className="container p-6 max-w-lg bg-ggray-100 rounded-md shadow-md mx-auto">
-      <h2 className="text-2xl font-semibold mb-6">Billing Address</h2>
+    <div className="container p-6 max-w-lg rounded-md  mx-auto">
       <form>
         {/* First and Last Name */}
         <div className="grid grid-cols-2 gap-4 mb-4">
@@ -106,7 +105,7 @@ const BillingComponent: React.FC = () => {
       </form>
             {/* Continue Button */}
             <button
-        className="mt-4 w-full py-2 px-4 rounded bg-blue-500 text-white hover:bg-blue-600"
+        className="mt-4 w-full py-2 px-4 rounded bg-[#4ca330] text-white hover:bg-green-900"
       >
         Continue to Payment Details
       </button>

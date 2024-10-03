@@ -51,7 +51,7 @@ const RecipientInformation: React.FC<RecipientProps> = ({ setRecipientInfo }) =>
   };
 
   return (
-    <div className="recipient-info bg-gray-200 p-6 rounded-md w-full max-w-lg mx-auto relative">
+    <div className="recipient-info p-6 rounded-md w-full max-w-lg mx-auto relative">
   <h5 className="text-lg font-bold mb-2">Recipient Information</h5>
   
   {/* Information Icon (Sheet Trigger) */}
@@ -132,7 +132,7 @@ const RecipientInformation: React.FC<RecipientProps> = ({ setRecipientInfo }) =>
       </div>
 
       {/* Save Button */}
-      <Button onClick={handleSave} className="bg-green-500 text-white p-2 rounded-md">
+      <Button onClick={handleSave}  className="mt-4 w-full py-2 px-4 rounded bg-[#4ca330] text-white hover:bg-green-900">
         Save Information
       </Button>
     </div>

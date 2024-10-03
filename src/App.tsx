@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
 import Home from "./components/Home";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-
 import SignUpModal from "./components/SignUpModal";
 import LoginModal from "./components/LoginModal";
 import { Provider } from "react-redux";
@@ -31,38 +30,47 @@ const App: React.FC = () => {
 
   return (
     <Provider store={store}>
-      <Router>
-        {/* Pass modal handlers to NavigationBar */}
-        <NavigationBar
-          openSignUpModal={openSignUpModal}
-          openLoginModal={openLoginModal}
-        />
+      <div className="flex flex-col min-h-screen bg-[#EBEEEA]">
+        <Router>
+          {/* Pass modal handlers to NavigationBar */}
+          <NavigationBar openSignUpModal={openSignUpModal} openLoginModal={openLoginModal} />
 
-        {/* Render different pages with React Router */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<ProductList />} />
-          <Route path="/products/:id" element={<ProductDetail />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="cart" element={<ShoppingCart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/confirmation" element={<ConfirmationPage />} />
-          <Route path="/shipping" element={<ShippingInformationPage />} />
-        </Routes>
+          {/* Main content area: Takes up available space to push the footer to the bottom */}
+          <div className="flex-grow">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/products" element={<ProductList />} />
+              <Route path="/products/:id" element={<ProductDetail />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="cart" element={<ShoppingCart />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/confirmation" element={<ConfirmationPage />} />
+              <Route path="/shipping" element={<ShippingInformationPage />} />
+            </Routes>
+          </div>
 
-        {/* Conditionally render modals */}
-        {showSignUpModal && <SignUpModal closeModal={closeSignUpModal} openLoginModal={openLoginModal} />}
-        {showLoginModal && (
-          <LoginModal
-            closeModal={closeLoginModal}
-            openSignUpModal={openSignUpModal} // Pass the openSignUpModal function here
-          />
-        )}
-        <Footer />
-      </Router>
+          {/* Conditionally render modals */}
+          {showSignUpModal && (
+            <SignUpModal
+              closeModal={closeSignUpModal}
+              openLoginModal={openLoginModal}
+            />
+          )}
+          {showLoginModal && (
+            <LoginModal
+              closeModal={closeLoginModal}
+              openSignUpModal={openSignUpModal}
+            />
+          )}
+
+          {/* Footer always at the bottom */}
+          <Footer />
+        </Router>
+      </div>
     </Provider>
   );
 };
 
 export default App;
+
 
