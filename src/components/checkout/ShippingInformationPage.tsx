@@ -66,7 +66,7 @@ const ShippingInformationPage: React.FC = () => {
         }
       );
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         alert('Address submitted successfully!');
         setIsOpen(true);
       } else {

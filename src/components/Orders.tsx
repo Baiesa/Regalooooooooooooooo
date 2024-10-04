@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+
 
 interface Product {
   id: number;
@@ -20,14 +23,24 @@ interface Order {
 }
 
 const Orders = () => {
+  const { token, user } = useSelector(
+    (state: RootState) => state.auth
+  );
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchOrders = async () => {
+    if (!user) {
+      setError("User not found.");
+      setLoading(false);
+      return;
+    }
+console.log(user.id)
+console.log(token)
     try {
       const response = await axios.get<Order[]>(
-        "https://regaloo-updated-code.onrender.com/orders"
+        `https://regaloo-updated-code.onrender.com/orders`
       );
       setOrders(response.data);
       console.log("Orders fetched:", response.data);
