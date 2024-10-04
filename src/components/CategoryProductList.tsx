@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom"; // Import useParams to capture the category
 import { Product } from "../interface/types";
 import {
   Pagination,
@@ -15,54 +12,60 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-const ProductList = () => {
-
+const CategoryProductList = () => {
+  const { category } = useParams(); // Get the category from the URL
 
   // State for list of products
   const [productList, setProductList] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  
-
   const navigate = useNavigate();
 
-  const fetchProducts = async () => {
+
+  // Function to fetch products filtered by category
+  const fetchProductsByCategory = async (category: string) => {
     try {
-      const response = await axios.get("https://fakestoreapi.com/products");
-      setProductList([...response.data]); // Combine fetched products with static ones if any
+      const response = await axios.get(
+        `https://fakestoreapi.com/products/category/${category}`
+      );
+      setProductList(response.data);
       setLoading(false);
     } catch (err: any) {
       setError(err.response?.data?.message || "Failed to fetch products");
- // Fallback to static products if the fetch fails
       setLoading(false);
     }
   };
-  
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-  
 
-  
+  useEffect(() => {
+    if (category) {
+      fetchProductsByCategory(category); // Fetch products based on the category from the URL
+    }
+  }, [category]);
+
+
+
   const handleViewDetails = (product: Product) => {
     navigate(`/products/${product.id}`);
   };
-  
+
   return (
     <div>
-    <div className="container mx-auto py-5">
-      <h2 className="text-3xl font-bold mb-4 text-center">Shop all</h2>
-  
-      <div className="flex justify-between items-center mb-6">
-        <div className="flex gap-2">
-          <button className="bg-gray-200 px-4 py-2 rounded">Filter</button>
-          <button className="bg-gray-200 px-4 py-2 rounded">Sort</button>
+      <div className="container mx-auto py-5">
+        <h2 className="text-4xl text-[#2e4823] font-bold font-quicksand text-center my-10">
+          {category &&
+            category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()}
+        </h2>
+
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex gap-2">
+            <button className="bg-gray-200 px-4 py-2 rounded">Filter</button>
+            <button className="bg-gray-200 px-4 py-2 rounded">Sort</button>
+          </div>
+          <p className="text-lg">{productList.length} Results</p>
         </div>
-        <p className="text-lg">{productList.length} Results</p>
-      </div>
-  
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {loading && <p>Loading...</p>}
           {error && <p className="text-red-500">{error}</p>}
           {!loading &&
@@ -131,4 +134,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default CategoryProductList;

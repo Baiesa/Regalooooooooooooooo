@@ -15,6 +15,7 @@ import ConfirmationPage from "./components/checkout/ConfirmationPage";
 import Footer from "./components/Footer";
 import Checkout from "./components/checkout/Checkout";
 import ShippingInformationPage from "./components/checkout/ShippingInformationPage";
+import CategoryProductList from "./components/CategoryProductList";
 
 const App: React.FC = () => {
   // State management for modals
@@ -46,6 +47,7 @@ const App: React.FC = () => {
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/confirmation" element={<ConfirmationPage />} />
               <Route path="/shipping" element={<ShippingInformationPage />} />
+              <Route path="/category/:category" element={<CategoryProductList />} />
             </Routes>
           </div>
 

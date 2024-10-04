@@ -8,6 +8,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import lock from "@/assets/images/image 25.png"
+import guy from "@/assets/images/image 1.png"
 
 interface RecipientInfo {
   recipientName: string;
@@ -59,21 +61,28 @@ const RecipientInformation: React.FC<RecipientProps> = ({ setRecipientInfo }) =>
     <SheetTrigger>
       <i className="fas fa-info-circle text-gray-500 cursor-pointer absolute top-2 right-2 text-xl"></i>
     </SheetTrigger>
-    <SheetContent>
+    <SheetContent className='bg-[#ebeeea]'>
       <SheetHeader>
-        <SheetTitle>Gifting with Regaloo: </SheetTitle>
-        <SheetDescription className='text-lg'>
+        <SheetTitle className='text-2xl '>Gifting with Regaloo: </SheetTitle>
+        <SheetDescription className='text-2xl pb-10'>
         Simplified and Secure
         </SheetDescription>
+        <img src={lock} alt="Lock image"  className='h-36 w-36 mx-auto ' />
       </SheetHeader>
-      <SheetTitle className='text-sm mt-10'>Private & Secure</SheetTitle>
-      <SheetDescription>
+      <SheetTitle className='text-lg mt-10 text-center mb-2 '>Private & Secure</SheetTitle>
+      <SheetDescription className='mb-10 text-center'>
       Your gift recipient will receive an email letting them know they have a surprise gift waiting, along with a request to approve and accept it by securely entering their delivery address – all without revealing it to you.
         </SheetDescription>
-        <SheetTitle className='text-sm mt-4'>Easy Confirmation</SheetTitle>
-      <SheetDescription>
+        <img src={guy} alt="Lock image"  className='h-36 w-36 mx-auto ' />
+        <SheetTitle className='text-lg mt-10 text-center mb-2'>Easy Confirmation</SheetTitle>
+      <SheetDescription className='mb-10 text-center'>
       Once your gift recipient confirms the gift and enters their address, we’ll notify you when it’s ready to be shipped
         </SheetDescription>
+        <SheetDescription className='mb-10 text-center font-bold' >
+        Your recipient’s privacy is our top priority. Their address will be used solely for this delivery and will remain completely anonymous.
+        </SheetDescription>
+        <Button className='bg-[#ebeeea] outline-green-600 text-green-600 outline min-w-full hover:bg-green-100 '>Got It</Button>
+
     </SheetContent>
   </Sheet>
 

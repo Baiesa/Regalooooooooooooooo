@@ -59,16 +59,17 @@ const ProductDetail: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 ">
       {/* Main Product Section */}
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row mb-10">
+      <div className="bg-[#EBEEEA] overflow-hidden flex flex-col md:flex-row mb-10">
         <img
           className="w-full md:w-1/2 h-80 md:h-auto object-cover rounded-sm"
           src={product.image || 'https://via.placeholder.com/500'}
           alt={product.title}
         />
         <div className="p-6 md:w-1/2">
-          <h2 className="text-3xl font-semibold mb-4">{product.title}</h2>
+          <h2 className="text-3xl font-semibold mb-4 font-quicksand">{product.title}</h2>
+          <h1 className='text-xl'>About This Item</h1>
           <p className="text-gray-600 text-lg mb-4">{product.description}</p>
           <p className="text-2xl font-bold text-green-600 mb-4">${product.price.toFixed(2)}</p>
           {/* Rating Stars */}
@@ -93,7 +94,7 @@ const ProductDetail: React.FC = () => {
           </div>
           {/* Add to Cart Button */}
           <button
-            className="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600"
+            className="bg-green-500 text-white px-6 py-2 mr-5 rounded hover:bg-green-600"
             onClick={() => handleAddToCart(product)}
           >
             Add to Cart
@@ -113,7 +114,7 @@ const ProductDetail: React.FC = () => {
         <h3 className="text-2xl font-semibold mb-4">Similar Items</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {similarProducts.slice(0, 4).map((similarProduct) => (
-            <div key={similarProduct.id} className="bg-white shadow-lg p-4 rounded-lg">
+            <div key={similarProduct.id} className="bg-[#EBEEEA] p-2 rounded-lg">
               <img
                 src={similarProduct.image || 'https://via.placeholder.com/150'}
                 alt={similarProduct.title}

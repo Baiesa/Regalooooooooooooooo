@@ -6,8 +6,9 @@
     --radius: 0.5rem
   }
 }
-
+@layer base{
 body {
   height: 100vh;
+  @apply font-quicksand;
 }
-
+}

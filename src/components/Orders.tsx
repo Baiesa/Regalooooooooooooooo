@@ -16,15 +16,14 @@ interface Order {
   id: number;
   products: Product[];
   status: string;
+  recipient_name: string;
 }
 
 const Orders = () => {
-  // State for orders, filtered orders, and products
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch all orders from the API
   const fetchOrders = async () => {
     try {
       const response = await axios.get<Order[]>(
@@ -40,13 +39,25 @@ const Orders = () => {
     }
   };
 
-  // Fetch orders and products when the component mounts
+  const handleDeleteOrder = async (orderId: number) => {
+    try {
+      await axios.delete(`https://regaloo-updated-code.onrender.com/orders/${orderId}`);
+      const updatedOrders = orders.filter((order) => order.id !== orderId);
+      setOrders(updatedOrders);
+    } catch (error) {
+      console.error("Error deleting order:", error);
+      setError("Failed to delete order.");
+    }
+  };
+
+
+
   useEffect(() => {
     fetchOrders();
   }, []);
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 ">
       <h3 className="text-center text-3xl font-semibold pb-6">My Orders</h3>
 
       {loading ? (
@@ -54,62 +65,63 @@ const Orders = () => {
       ) : error ? (
         <p className="text-center text-red-500">{error}</p>
       ) : orders.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {orders.map((order) => (
-            <div
-              key={order.id}
-              className="bg-white shadow-md rounded-lg overflow-hidden"
-            >
-              <div className="p-6">
-                <h4 className="text-xl font-semibold mb-2">
-                  Order #{order.id}
-                </h4>
-                <p className="text-gray-600 mb-2">
-                  <span className="font-medium">Order Date:</span>{" "}
-                  {order.date || "N/A"}
-                </p>
-                <p className="text-gray-600 mb-2">
-                  <span className="font-medium">Status:</span> {order.status}
-                </p>
-                <p className="text-gray-600 mb-4">
-                  <span className="font-medium">Delivery Address:</span>{" "}
-                  {order.delivery_address ? "******" : "N/A"}
-                </p>
-
-                <p className="font-semibold mb-2">Products:</p>
-                {order.products.length > 0 ? (
-                  <ul className="space-y-2">
-                    {order.products.map((product) => (
-                      <li
-                        key={product.id}
-                        className="flex items-center space-x-4"
-                      >
-                        {/* Product Image Placeholder */}
-                        <img
-                          src="https://via.placeholder.com/50"
-                          alt={product.name}
-                          className="w-12 h-12 object-cover rounded"
-                        />
-                        <div>
-                          <p className="text-gray-700 font-medium">
-                            {product.name}
-                          </p>
-                          <p className="text-sm text-gray-500">
-                            {product.description}
-                          </p>
-                          <p className="text-sm text-gray-500">
-                            Price: ${product.price.toFixed(2)}
-                          </p>
+        <div className="overflow-x-auto">
+          <table className="min-w-full  rounded-lg bg-[#F1FAEB]">
+            <thead>
+              <tr>
+                <th className="px-4 py-2 text-left font-semibold">Order #</th>
+                <th className="px-4 py-2 text-left font-semibold">Order Date</th>
+                <th className="px-4 py-2 text-left font-semibold">Status</th>
+                <th className="px-4 py-2 text-left font-semibold">Delivery Address</th>
+                <th className="px-4 py-2 text-left font-semibold">Recipient Name</th>
+                <th className="px-4 py-2 text-right font-semibold">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map((order) => (
+                <tr key={order.id} className="border-t">
+                  <td className="px-4 py-2">{order.id}</td>
+                  <td className="px-4 py-2">{order.date || "N/A"}</td>
+                  <td className="px-4 py-2">{order.status}</td>
+                  <td className="px-4 py-2">
+                    {order.delivery_address ? (
+                      <div className="flex items-center space-x-2">
+                        <div className="bg-green-100 p-2 rounded-full">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            className="w-6 h-6 text-green-600"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
                         </div>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p>No products found.</p>
-                )}
-              </div>
-            </div>
-          ))}
+                        <span className="text-green-600">Delivery Confirmed</span>
+                      </div>
+                    ) : (
+                      "N/A"
+                    )}
+                  </td>
+                  <td className="px-4 py-2">{order.recipient_name}</td>
+                  <td className="px-4 py-2 text-right space-x-4">
+                    <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                      View
+                    </button>
+                    <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                    onClick={() =>handleDeleteOrder(order.id)}>
+                      Cancel
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       ) : (
         <p className="w-full text-center">No orders found.</p>
@@ -119,6 +131,8 @@ const Orders = () => {
 };
 
 export default Orders;
+
+
 
 
 

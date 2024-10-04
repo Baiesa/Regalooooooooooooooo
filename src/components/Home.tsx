@@ -37,10 +37,11 @@ const Home: React.FC = () => {
 
         // Map categories to an object for easier sorting
         const categoryMap: Record<string, Product[]> = {
+          "women's clothing": [],
+          "men's clothing": [],
           electronics: [],
           jewelery: [],
-          "men's clothing": [],
-          "women's clothing": [],
+          
         };
 
         // Sort products into categories
@@ -78,7 +79,7 @@ const Home: React.FC = () => {
       <div className="relative bg-cover bg-center h-[500px]" style={{ backgroundImage: `url(${hero})` }}>
         <div className="absolute inset-0 bg-black bg-opacity-30"></div>
         <div className="relative z-10 flex flex-col justify-center items-end h-full px-6 lg:px-20">
-          <h1 className="text-white font-bold text-4xl lg:text-4xl max-w-lg">
+          <h1 className="text-white font-quicksand shadow-sm font-bold text-4xl lg:text-4xl max-w-lg">
             Send the Perfect Gift, Privately and Securely
           </h1>
           <button
@@ -93,8 +94,8 @@ const Home: React.FC = () => {
       {/* Featured Brands */}
       <div className="bg-[#F5FAF4] py-10">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-2 text-[#2e4823]">Featured Brands</h2>
-          <a href="/products" className="text-sm underline text-[#4ca330]">
+          <h2 className="text-3xl font-bold mb-2 text-[#2e4823] font-quicksand">Featured Brands</h2>
+          <a href="/products" className="font-quicksand text-sm underline text-[#4ca330]">
             Shop All
           </a>
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center">
@@ -117,9 +118,9 @@ const Home: React.FC = () => {
       <div className="bg-[#ebecee] text-[#2e4823] shadow-lg ">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
           <div className="text-center md:text-left">
-            <h2 className="text-4xl font-bold">Free Shipping on Orders Over $50</h2>
+            <h2 className="text-7xl font-bold font-quicksand">Free Shipping <span className="font-normal">On Orders Over $50</span></h2>
           </div>
-          <div className="mt-6 md:mt-0">
+          <div className="mt-6 md:mt-0 ">
             <img src={shopbag} alt="Shopping Bag" />
           </div>
         </div>
@@ -133,7 +134,7 @@ const Home: React.FC = () => {
           {!loading && !error && categories.map((category, index) => (
             <div key={index} className="mb-10">
               <div className="flex justify-between items-center mb-6 ">
-                <h2 className="text-4xl text-[#2e4823] font-bold">{category.title}</h2>
+                <h2 className="text-4xl text-[#2e4823] font-bold font-quicksand">{category.title.charAt(0).toUpperCase()+ category.title.slice(1).toLowerCase()}</h2>
                 <a href={category.viewAllLink} className="text-sm underline text-gray-700">View All</a>
               </div>
 
