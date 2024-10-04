@@ -67,7 +67,6 @@ const ShippingInformationPage: React.FC = () => {
       );
 
       if (response.status === 200) {
-        alert('Address submitted successfully!');
         setIsOpen(true);
       } else {
         alert(`Error: ${response.data.Message || 'Unexpected response from server.'}`);
