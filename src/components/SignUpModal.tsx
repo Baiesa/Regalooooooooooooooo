@@ -10,6 +10,7 @@ interface SignUpModalProps {
 }
 
 const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, openLoginModal }) => {
+  
   // Set up the customer to be submitted
   const [inputName, setInputName] = useState<string>("");
   const [inputEmail, setInputEmail] = useState<string>("");

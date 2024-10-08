@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
-
+import { useNavigate } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -23,12 +23,12 @@ interface Order {
 }
 
 const Orders = () => {
-  const { token, user } = useSelector(
-    (state: RootState) => state.auth
-  );
+  const { user } = useSelector((state: RootState) => state.auth);
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const navigate = useNavigate();
 
   const fetchOrders = async () => {
     if (!user) {
@@ -36,14 +36,11 @@ const Orders = () => {
       setLoading(false);
       return;
     }
-console.log(user.id)
-console.log(token)
     try {
       const response = await axios.get<Order[]>(
         `https://regaloo-updated-code.onrender.com/orders`
       );
       setOrders(response.data);
-      console.log("Orders fetched:", response.data);
     } catch (error) {
       console.error("Error fetching orders:", error);
       setError("Failed to fetch orders.");
@@ -54,7 +51,9 @@ console.log(token)
 
   const handleDeleteOrder = async (orderId: number) => {
     try {
-      await axios.delete(`https://regaloo-updated-code.onrender.com/orders/${orderId}`);
+      await axios.delete(
+        `https://regaloo-updated-code.onrender.com/orders/${orderId}`
+      );
       const updatedOrders = orders.filter((order) => order.id !== orderId);
       setOrders(updatedOrders);
     } catch (error) {
@@ -63,7 +62,11 @@ console.log(token)
     }
   };
 
-
+  // Updated handleShipping function to pass order data
+  const handleShipping = (order: Order) => {
+    // Pass the order data via the state parameter
+    navigate(`/orders/${order.id}/finalize`, { state: { order } });
+  };
 
   useEffect(() => {
     fetchOrders();
@@ -83,10 +86,16 @@ console.log(token)
             <thead>
               <tr>
                 <th className="px-4 py-2 text-left font-semibold">Order #</th>
-                <th className="px-4 py-2 text-left font-semibold">Order Date</th>
+                <th className="px-4 py-2 text-left font-semibold">
+                  Order Date
+                </th>
                 <th className="px-4 py-2 text-left font-semibold">Status</th>
-                <th className="px-4 py-2 text-left font-semibold">Delivery Address</th>
-                <th className="px-4 py-2 text-left font-semibold">Recipient Name</th>
+                <th className="px-4 py-2 text-left font-semibold">
+                  Delivery Address
+                </th>
+                <th className="px-4 py-2 text-left font-semibold">
+                  Recipient Name
+                </th>
                 <th className="px-4 py-2 text-right font-semibold">Actions</th>
               </tr>
             </thead>
@@ -115,7 +124,9 @@ console.log(token)
                             />
                           </svg>
                         </div>
-                        <span className="text-green-600">Delivery Confirmed</span>
+                        <span className="text-green-600">
+                          Delivery Confirmed
+                        </span>
                       </div>
                     ) : (
                       "N/A"
@@ -123,11 +134,21 @@ console.log(token)
                   </td>
                   <td className="px-4 py-2">{order.recipient_name}</td>
                   <td className="px-4 py-2 text-right space-x-4">
-                    <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-                      View
+                    <button
+                      className={`bg-green-500 text-white px-4 py-2 rounded ${
+                        !order.delivery_address
+                          ? "opacity-50 cursor-not-allowed"
+                          : "hover:bg-green-600"
+                      }`}
+                      disabled={!order.delivery_address}
+                      onClick={() => handleShipping(order)} // Pass order object
+                    >
+                      Ship
                     </button>
-                    <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                    onClick={() =>handleDeleteOrder(order.id)}>
+                    <button
+                      className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                      onClick={() => handleDeleteOrder(order.id)}
+                    >
                       Cancel
                     </button>
                   </td>
@@ -144,9 +165,3 @@ console.log(token)
 };
 
 export default Orders;
-
-
-
-
-
-

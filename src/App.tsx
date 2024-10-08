@@ -16,6 +16,8 @@ import Footer from "./components/Footer";
 import Checkout from "./components/checkout/Checkout";
 import ShippingInformationPage from "./components/checkout/ShippingInformationPage";
 import CategoryProductList from "./components/CategoryProductList";
+import FinalizeOrder from "./components/checkout/FinalizeOrder";
+import AccountPage from "./components/AccountPage";
 
 const App: React.FC = () => {
   // State management for modals
@@ -48,6 +50,8 @@ const App: React.FC = () => {
               <Route path="/confirmation" element={<ConfirmationPage />} />
               <Route path="/shipping" element={<ShippingInformationPage />} />
               <Route path="/category/:category" element={<CategoryProductList />} />
+              <Route path="/orders/:orderId/finalize" element={<FinalizeOrder />} />
+              <Route path="/account" element={<AccountPage />} />
             </Routes>
           </div>
 

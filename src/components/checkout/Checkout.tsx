@@ -124,7 +124,7 @@ const orderData = {
       </div>
 
       {/* Right side order summary */}
-      <div className="max-w-3xl mx-auto p-6 #F1FAEB rounded-md">
+      <div className="max-w-3xl mx-auto p-6 bg-[#F1FAEB] rounded-md">
       {/* Order Summary Section */}
       <OrderSummary />
 
