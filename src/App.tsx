@@ -18,6 +18,7 @@ import ShippingInformationPage from "./components/checkout/ShippingInformationPa
 import CategoryProductList from "./components/CategoryProductList";
 import FinalizeOrder from "./components/checkout/FinalizeOrder";
 import AccountPage from "./components/AccountPage";
+import { Analytics } from '@vercel/analytics/react'; // Import Vercel Analytics
 
 const App: React.FC = () => {
   // State management for modals
@@ -69,6 +70,9 @@ const App: React.FC = () => {
             />
           )}
 
+          {/* Add Vercel Analytics */}
+          <Analytics /> 
+
           {/* Footer always at the bottom */}
           <Footer />
         </Router>
@@ -78,5 +82,6 @@ const App: React.FC = () => {
 };
 
 export default App;
+
 
 
