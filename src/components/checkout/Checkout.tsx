@@ -7,7 +7,7 @@ import {
 } from "../ui/accordion";
 
 import RecipientInformation from "./RecipientInformation";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 // import { useNavigate } from "react-router-dom";
 import axios from "axios"; // Import axios
@@ -15,6 +15,7 @@ import PaymentDetails from "./PaymentDetails";
 import BillingComponent from "./BillingComponent";
 import OrderSummary from "./OrderSummary";
 import ConfirmationPage from "./ConfirmationPage";
+import { clearCart } from "@/features/shoppingCartSlice";
 
 // Define RecipientInfo type
 interface RecipientInfo {
@@ -29,6 +30,7 @@ interface RecipientInfo {
 const CheckoutPage: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.auth); // Access auth state from Redux
   const [isOpen, setIsOpen] = React.useState(false);
+  const dispatch = useDispatch();
 
   const [recipientInfo, setRecipientInfo] =
     React.useState<RecipientInfo | null>(null);
@@ -86,6 +88,8 @@ const orderData = {
       setIsOpen(true);
     } catch (error) {
       console.error("Error placing the order:", error);
+    } finally {
+      dispatch(clearCart());
     }
   };
 
