@@ -3,14 +3,17 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store"; // Import your AppDispatch type
 import { login } from "../features/authActions"; // Import your login action
+import { FaSpinner } from "react-icons/fa";
 
 interface SignUpModalProps {
   closeModal: () => void;
   openLoginModal: () => void;
 }
 
-const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, openLoginModal }) => {
-  
+const SignUpModal: React.FC<SignUpModalProps> = ({
+  closeModal,
+  openLoginModal,
+}) => {
   // Set up the customer to be submitted
   const [inputName, setInputName] = useState<string>("");
   const [inputEmail, setInputEmail] = useState<string>("");
@@ -21,6 +24,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, openLoginModal })
   const [inputPassword, setInputPassword] = useState<string>("");
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   // Dispatch function from Redux
   const dispatch: AppDispatch = useDispatch();
@@ -29,6 +33,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, openLoginModal })
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("Form submitted");
+    setLoading(true); 
 
     try {
       // Step 1: Create the customer
@@ -63,6 +68,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, openLoginModal })
           // Step 3: Dispatch the login action to auto-login the user
           try {
             await dispatch(login(inputUsername, inputPassword)); // Dispatch the login action
+            setLoading(false); 
             closeModal(); // Close the modal on successful login
           } catch (error) {
             setErrorMessage("Failed to log in after sign-up.");
@@ -91,123 +97,132 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, openLoginModal })
   };
 
   return (
-<div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-  <div className="bg-[#F5FAF4] w-full max-w-md mx-auto p-8 rounded-lg shadow-xl relative">
-    {/* Close Button */}
-    <div className="flex justify-end">
-      <button
-        onClick={closeModal}
-        className="text-[#4A6B3C] hover:text-black text-2xl transition duration-150"
-      >
-        &times;
-      </button>
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+      <div className="bg-[#F5FAF4] w-full max-w-md mx-auto p-8 rounded-lg shadow-xl relative">
+        {/* Close Button */}
+        <div className="flex justify-end">
+          <button
+            onClick={closeModal}
+            className="text-[#4A6B3C] hover:text-black text-2xl transition duration-150"
+          >
+            &times;
+          </button>
+        </div>
+
+        {/* Modal Header */}
+        <h2 className="text-xl font-semibold text-[#4A6B3C] mb-4 text-left">
+          Sign Up
+        </h2>
+
+        <hr className="border-t-[1px] border-[#4A6B3C] mb-6" />
+
+        {/* Show Error Message */}
+        {errorMessage && (
+          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-md">
+            {errorMessage}
+          </div>
+        )}
+
+        {/* Loading Spinner */}
+        {loading && (
+          <div className="flex justify-center items-center mb-4">
+            <FaSpinner className="animate-spin text-4xl text-[#4A6B3C]" />
+            <p className="ml-2 text-[#4A6B3C]">
+              The backend is booting up, please wait...
+            </p>
+          </div>
+        )}
+
+        {/* Sign Up Form */}
+        {!loading && (
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Name Input */}
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Name"
+              value={inputName}
+              onChange={(e) => setInputName(e.target.value)}
+              className="w-full p-3 border border-[#4A6B3C] rounded-md text-[#4A6B3C] placeholder-[#4A6B3C] focus:outline-none focus:border-[#4A6B3C] transition duration-150"
+              required
+            />
+          </div>
+
+          {/* Email Input */}
+          <div className="relative">
+            <input
+              type="email"
+              placeholder="Email"
+              value={inputEmail}
+              onChange={(e) => setInputEmail(e.target.value)}
+              className="w-full p-3 border border-[#4A6B3C] rounded-md text-[#4A6B3C] placeholder-[#4A6B3C] focus:outline-none focus:border-[#4A6B3C] transition duration-150"
+              required
+            />
+          </div>
+
+          {/* Phone Input */}
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Phone"
+              value={inputPhone}
+              onChange={(e) => setInputPhone(e.target.value)}
+              className="w-full p-3 border border-[#4A6B3C] rounded-md text-[#4A6B3C] placeholder-[#4A6B3C] focus:outline-none focus:border-[#4A6B3C] transition duration-150"
+              required
+            />
+          </div>
+
+          {/* Username Input */}
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Username"
+              value={inputUsername}
+              onChange={(e) => setInputUsername(e.target.value)}
+              className="w-full p-3 border border-[#4A6B3C] rounded-md text-[#4A6B3C] placeholder-[#4A6B3C] focus:outline-none focus:border-[#4A6B3C] transition duration-150"
+              required
+            />
+          </div>
+
+          {/* Password Input */}
+          <div className="relative">
+            <input
+              type="password"
+              placeholder="Password"
+              value={inputPassword}
+              onChange={(e) => setInputPassword(e.target.value)}
+              className="w-full p-3 border border-[#4A6B3C] rounded-md text-[#4A6B3C] placeholder-[#4A6B3C] focus:outline-none focus:border-[#4A6B3C] transition duration-150"
+              required
+            />
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full bg-[#4ca330] text-[#f1faeb] p-3 rounded-lg font-semibold mt-4"
+          >
+            Sign Up
+          </button>
+        </form>
+        )}
+
+        {/* Optional Login Link */}
+        <div className="mt-6 text-center">
+          <p className="text-[#4A6B3C]">
+            Already have an account?{" "}
+            <button
+              onClick={() => {
+                closeModal(); // Close the sign-up modal
+                openLoginModal(); // Open the login modal
+              }}
+              className="text-[#4A6B3C] underline focus:outline-none"
+            >
+              Sign In
+            </button>
+          </p>
+        </div>
+      </div>
     </div>
-
-    {/* Modal Header */}
-    <h2 className="text-xl font-semibold text-[#4A6B3C] mb-4 text-left">
-      Sign Up
-    </h2>
-
-    <hr className="border-t-[1px] border-[#4A6B3C] mb-6" />
-
-    {/* Show Error Message */}
-    {errorMessage && (
-      <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-md">
-        {errorMessage}
-      </div>
-    )}
-
-    {/* Sign Up Form */}
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {/* Name Input */}
-      <div className="relative">
-        <input
-          type="text"
-          placeholder="Name"
-          value={inputName}
-          onChange={(e) => setInputName(e.target.value)}
-          className="w-full p-3 border border-[#4A6B3C] rounded-md text-[#4A6B3C] placeholder-[#4A6B3C] focus:outline-none focus:border-[#4A6B3C] transition duration-150"
-          required
-        />
-      </div>
-
-      {/* Email Input */}
-      <div className="relative">
-        <input
-          type="email"
-          placeholder="Email"
-          value={inputEmail}
-          onChange={(e) => setInputEmail(e.target.value)}
-          className="w-full p-3 border border-[#4A6B3C] rounded-md text-[#4A6B3C] placeholder-[#4A6B3C] focus:outline-none focus:border-[#4A6B3C] transition duration-150"
-          required
-        />
-      </div>
-
-      {/* Phone Input */}
-      <div className="relative">
-        <input
-          type="text"
-          placeholder="Phone"
-          value={inputPhone}
-          onChange={(e) => setInputPhone(e.target.value)}
-          className="w-full p-3 border border-[#4A6B3C] rounded-md text-[#4A6B3C] placeholder-[#4A6B3C] focus:outline-none focus:border-[#4A6B3C] transition duration-150"
-          required
-        />
-      </div>
-
-      {/* Username Input */}
-      <div className="relative">
-        <input
-          type="text"
-          placeholder="Username"
-          value={inputUsername}
-          onChange={(e) => setInputUsername(e.target.value)}
-          className="w-full p-3 border border-[#4A6B3C] rounded-md text-[#4A6B3C] placeholder-[#4A6B3C] focus:outline-none focus:border-[#4A6B3C] transition duration-150"
-          required
-        />
-      </div>
-
-      {/* Password Input */}
-      <div className="relative">
-        <input
-          type="password"
-          placeholder="Password"
-          value={inputPassword}
-          onChange={(e) => setInputPassword(e.target.value)}
-          className="w-full p-3 border border-[#4A6B3C] rounded-md text-[#4A6B3C] placeholder-[#4A6B3C] focus:outline-none focus:border-[#4A6B3C] transition duration-150"
-          required
-        />
-      </div>
-
-      {/* Submit Button */}
-      <button
-        type="submit"
-        className="w-full bg-[#4ca330] text-[#f1faeb] p-3 rounded-lg font-semibold mt-4"
-        
-      >
-        Sign Up
-      </button>
-    </form>
-
-    {/* Optional Login Link */}
-    <div className="mt-6 text-center">
-      <p className="text-[#4A6B3C]">
-        Already have an account?{" "}
-        <button
-          onClick={() => {
-            closeModal(); // Close the sign-up modal
-            openLoginModal(); // Open the login modal
-          }}
-          className="text-[#4A6B3C] underline focus:outline-none"
-        >
-          Sign In
-        </button>
-      </p>
-    </div>
-  </div>
-</div>
-
-
   );
 };
 

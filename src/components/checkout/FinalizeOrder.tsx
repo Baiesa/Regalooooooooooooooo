@@ -5,6 +5,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "../ui/accordion";
+import axios from "axios";
 
 import ShippingOptions from "./ShippingOptions";
 import { useLocation } from "react-router-dom"; // Import useLocation
@@ -47,6 +48,16 @@ const FinalizeOrderPage: React.FC = () => {
     "recipient-info",
     "shipping-options",
   ];
+
+  const handleFinalizeOrder = async (orderId: number) => {
+    try {
+      const response = await axios.post(`https://regaloo-updated-code.onrender.com/orders/send_shipping_email/${orderId}`);
+      console.log(response);
+      setIsOpen(true);
+    } catch (error) {
+      console.error("Error finalizing order:", error);
+    } 
+  }
 
   return (
     <div className="checkout-container flex justify-between p-8 bg-[#ebeeea] ">
@@ -171,7 +182,7 @@ const FinalizeOrderPage: React.FC = () => {
         <div className="mt-6 flex justify-center">
           <button
             className="mt-4 w-full py-2 px-4 rounded bg-[#4ca330] text-white hover:bg-green-900"
-            onClick={() => setIsOpen(true)}
+            onClick={() => handleFinalizeOrder(order.id)}
           >
             Finalize Order
           </button>
