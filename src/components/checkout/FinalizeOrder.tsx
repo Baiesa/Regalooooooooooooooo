@@ -51,7 +51,10 @@ const FinalizeOrderPage: React.FC = () => {
 
   const handleFinalizeOrder = async (orderId: number) => {
     try {
-      const response = await axios.post(`https://regaloo-updated-code.onrender.com/orders/shipping/${orderId}`);
+      const response = await axios.post(`https://regaloo-updated-code.onrender.com/orders/shipping`,{
+        order_id: orderId,
+        
+      });
       console.log(response);
       setIsOpen(true);
     } catch (error) {
