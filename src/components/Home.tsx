@@ -11,6 +11,11 @@ import shopbag from "../assets/images/pexels-karolina-grabowska-5650020 1.png";
 import { Product } from "@/interface/types";
 import axios from "axios";
 import { Category } from "../interface/types";
+import Suprise from "../assets/images/image 17.png";
+import Personalize from "../assets/images/image 15.png";
+import Anonymity from "../assets/images/image 19.png";
+import Track from "../assets/images/image 23.png";
+import Perfect from "../assets/images/image 21.png";
 
 const Home: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -32,7 +37,9 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get<Product[]>("https://fakestoreapi.com/products");
+        const response = await axios.get<Product[]>(
+          "https://fakestoreapi.com/products"
+        );
         const products = response.data;
 
         // Map categories to an object for easier sorting
@@ -41,7 +48,6 @@ const Home: React.FC = () => {
           "men's clothing": [],
           electronics: [],
           jewelery: [],
-          
         };
 
         // Sort products into categories
@@ -52,11 +58,13 @@ const Home: React.FC = () => {
         });
 
         // Convert categoryMap object to an array of categories
-        const categoriesArray: Category[] = Object.keys(categoryMap).map((category) => ({
-          title: category,
-          viewAllLink: `/category/${category}`,
-          products: categoryMap[category],
-        }));
+        const categoriesArray: Category[] = Object.keys(categoryMap).map(
+          (category) => ({
+            title: category,
+            viewAllLink: `/category/${category}`,
+            products: categoryMap[category],
+          })
+        );
 
         setCategories(categoriesArray);
         setLoading(false);
@@ -76,7 +84,10 @@ const Home: React.FC = () => {
   return (
     <>
       {/* Hero Section */}
-      <div className="relative bg-cover bg-center h-[500px]" style={{ backgroundImage: `url(${hero})` }}>
+      <div
+        className="relative bg-cover bg-center h-[500px]"
+        style={{ backgroundImage: `url(${hero})` }}
+      >
         <div className="absolute inset-0 bg-black bg-opacity-30"></div>
         <div className="relative z-10 flex flex-col justify-center items-end h-full px-6 lg:px-20">
           <h1 className="text-white font-quicksand shadow-sm font-bold text-4xl lg:text-4xl max-w-lg">
@@ -94,8 +105,13 @@ const Home: React.FC = () => {
       {/* Featured Brands */}
       <div className="bg-[#F5FAF4] py-10">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-2 text-[#2e4823] font-quicksand">Featured Brands</h2>
-          <a href="/products" className="font-quicksand text-sm underline text-[#4ca330]">
+          <h2 className="text-3xl font-bold mb-2 text-[#2e4823] font-quicksand">
+            Featured Brands
+          </h2>
+          <a
+            href="/products"
+            className="font-quicksand text-sm underline text-[#4ca330]"
+          >
             Shop All
           </a>
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center">
@@ -118,7 +134,10 @@ const Home: React.FC = () => {
       <div className="bg-[#ebecee] text-[#2e4823] shadow-lg ">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
           <div className="text-center md:text-left">
-            <h2 className="text-7xl font-bold font-quicksand">Free Shipping <span className="font-normal">On Orders Over $50</span></h2>
+            <h2 className="text-7xl font-bold font-quicksand">
+              Free Shipping{" "}
+              <span className="font-normal">On Orders Over $50</span>
+            </h2>
           </div>
           <div className="mt-6 md:mt-0 ">
             <img src={shopbag} alt="Shopping Bag" />
@@ -131,54 +150,121 @@ const Home: React.FC = () => {
         <div className="container mx-auto">
           {loading && <p>Loading...</p>}
           {error && <p className="text-red-500">{error}</p>}
-          {!loading && !error && categories.map((category, index) => (
-            <div key={index} className="mb-10">
-              <div className="flex justify-between items-center mb-6 ">
-                <h2 className="text-4xl text-[#2e4823] font-bold font-quicksand">{category.title.charAt(0).toUpperCase()+ category.title.slice(1).toLowerCase()}</h2>
-                <a href={category.viewAllLink} className="text-sm underline text-gray-700">View All</a>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 cursor-pointer">
-                {category.products.slice(0, 4).map((product) => (
-                  <div
-                    key={product.id}
-                    className="bg-[#F5FAF4]  p-4 rounded-lg"
-                    onClick={() => handleViewDetails(product)}
+          {!loading &&
+            !error &&
+            categories.map((category, index) => (
+              <div key={index} className="mb-10">
+                <div className="flex justify-between items-center mb-6 ">
+                  <h2 className="text-4xl text-[#2e4823] font-bold font-quicksand">
+                    {category.title.charAt(0).toUpperCase() +
+                      category.title.slice(1).toLowerCase()}
+                  </h2>
+                  <a
+                    href={category.viewAllLink}
+                    className="text-sm underline text-gray-700"
                   >
-                    <img
-                      src={product.image || "https://via.placeholder.com/150"}
-                      alt={product.title}
-                      className="w-full h-48 object-cover object-center rounded-t-md"
-                    />
-                    <div className="text-lg font-semibold mt-4">{product.title}</div>
-                    <div className="text-gray-500 mt-2">${product.price.toFixed(2)}</div>
-                    <div className="text-yellow-500 mt-2">
-                      {"★".repeat(Math.round(product.rating.rate))}
-                      {"☆".repeat(5 - Math.round(product.rating.rate))}
+                    View All
+                  </a>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 cursor-pointer">
+                  {category.products.slice(0, 4).map((product) => (
+                    <div
+                      key={product.id}
+                      className="bg-[#F5FAF4]  p-4 rounded-lg"
+                      onClick={() => handleViewDetails(product)}
+                    >
+                      <img
+                        src={product.image || "https://via.placeholder.com/150"}
+                        alt={product.title}
+                        className="w-full h-48 object-cover object-center rounded-t-md"
+                      />
+                      <div className="text-lg font-semibold mt-4">
+                        {product.title}
+                      </div>
+                      <div className="text-gray-500 mt-2">
+                        ${product.price.toFixed(2)}
+                      </div>
+                      <div className="text-yellow-500 mt-2">
+                        {"★".repeat(Math.round(product.rating.rate))}
+                        {"☆".repeat(5 - Math.round(product.rating.rate))}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
 
       {/* Promotional Section */}
       <div className="bg-[#F5FAF4] py-10">
-        <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="container mx-auto grid grid-rows-2 grid-cols-5 md:grid-cols-5 gap-4">
           <div
-            className="bg-cover bg-center p-4 flex flex-col items-center justify-center shadow-lg"
-            style={{ backgroundImage: 'url(https://via.placeholder.com/600x300)' }}
+            className="col-span-2 row-span-2 bg-cover bg-center p-4 flex flex-col items-center justify-end shadow-lg"
+            style={{ backgroundImage: `url(${Suprise})` }}
           >
-            <p className="font-bold text-white text-2xl">Promotional Area</p>
+            <h2 className="font-bold text-white text-xl mb-2">
+              Surprise Gifting Made Easy
+            </h2>
+            <p className="text-white text-center text-sm">
+              Send gifts without needing the recipient’s address. Let them
+              securely provide it while you keep the surprise!
+            </p>
           </div>
 
           <div
-            className="bg-cover bg-center p-4 flex flex-col items-center justify-center shadow-lg"
-            style={{ backgroundImage: 'url(https://via.placeholder.com/600x300)' }}
+            className="col-span-2 row-span-1 bg-cover bg-center p-4 flex flex-col items-center justify-end shadow-lg"
+            style={{ backgroundImage: `url(${Personalize})` }}
           >
-            <p className="font-bold text-black text-2xl">Promotional Area</p>
+            <h2 className="font-bold text-white text-xl mb-2">
+              Personalize Every Gift
+            </h2>
+            <p className="text-white text-center text-sm">
+              Add a personal touch with custom messages and unique options that
+              make your gift truly special.
+            </p>
+          </div>
+
+          <div
+            className="col-span-1 row-span-2 bg-cover bg-center p-4 flex flex-col items-center justify-end shadow-lg"
+
+            style={{ backgroundImage: `url(${Perfect})` }}
+          >
+            <h2 className="font-bold text-white text-xl mb-2">
+              Perfect Gifts for Every Occasion
+            </h2>
+            <p className="text-white text-center text-sm">
+              From birthdays to special moments, explore our curated collections
+              for her, him, kids, and more.
+            </p>
+          </div>
+
+          <div
+            className="col-span-1 row-span-1 bg-contain bg-center p-4 flex flex-col items-center justify-end shadow-lg"
+            style={{ backgroundImage: `url(${Track})` }}
+          >
+            <h2 className="font-bold text-white text-xl mb-2 text-center">
+              Track Your Gift Every Step
+            </h2>
+            <p className="text-white text-center text-sm">
+              Stay informed with real-time tracking once your recipient provides
+              their address. Watch the journey of your gift!
+            </p>
+          </div>
+
+          <div
+            className="col-span-1 row-span-1 bg-contain bg-center p-4 flex flex-col items-center justify-end shadow-lg"
+            style={{ backgroundImage: `url(${Anonymity})` }}
+          >
+            <h2 className="font-bold text-white text-xl mb-2 text-center">
+              Anonymity Meets Convenience
+            </h2>
+            <p className="text-white text-center text-sm">
+              Keep your recipient’s privacy intact while delivering joy. They
+              approve the address, and we handle the rest!
+            </p>
+            
           </div>
         </div>
       </div>
@@ -187,4 +273,3 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-

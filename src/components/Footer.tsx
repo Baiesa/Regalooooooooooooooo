@@ -46,16 +46,16 @@ const Footer = () => {
 
     {/* Newsletter Signup */}
     <div className="max-w-sm mx-auto">
-  <h4 className="font-bold mb-4 text-center">Join our newsletter for exclusive offers!</h4>
+  <h4 className="font-bold mb-4 text-center text-sm">Join our newsletter for exclusive offers!</h4>
   <form className="flex">
     <input
       type="email"
       placeholder="Enter your email"
-      className="p-2 rounded-l-md text-black w-full"
+      className="rounded-l-md text-black w-full"
     />
     <button
       type="submit"
-      className="bg-gray-700 text-white px-4 py-2 rounded-r-md hover:bg-gray-600"
+      className="bg-gray-700 text-white  rounded-r-md hover:bg-gray-600"
     >
       Sign Up
     </button>

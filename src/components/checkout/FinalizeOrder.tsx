@@ -8,7 +8,7 @@ import {
 import axios from "axios";
 
 import ShippingOptions from "./ShippingOptions";
-import { useLocation } from "react-router-dom"; // Import useLocation
+import { useLocation } from "react-router-dom"; 
 import ShippingConfirmationPage from "./ShippingConfirmationPage";
 
 interface Product {
@@ -51,10 +51,10 @@ const FinalizeOrderPage: React.FC = () => {
 
   const handleFinalizeOrder = async (orderId: number) => {
     try {
-      const response = await axios.post(`https://regaloo-updated-code.onrender.com/orders/shipping`,{
-        order_id: orderId,
-        
+      const response = await axios.post(`https://regaloo-updated-code.onrender.com/orders/shipping`, {
+        order_id: orderId
       });
+        
       console.log(response);
       setIsOpen(true);
     } catch (error) {
