@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import Reac, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
 import Home from "./components/Home";
@@ -71,7 +71,7 @@ const App: React.FC = () => {
           )}
 
           {/* Add Vercel Analytics */}
-          <Analytics /> 
+          <Analytics />
 
           {/* Footer always at the bottom */}
           <Footer />
